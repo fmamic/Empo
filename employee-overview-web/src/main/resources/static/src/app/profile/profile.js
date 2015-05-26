@@ -37,7 +37,7 @@ var profile = angular.module('ngBoilerplate.profile', [
                 });
         }
 
-        $scope.location = $location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/ngbp/build/assets/';
+        $scope.location = $location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/build/assets/';
 
         $scope.openTag = function (id) {
             $state.go('tag');
