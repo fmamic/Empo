@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <blockquote class="tagBlock modalBlock"><h3 class="modal-title">Choose existing tags</h3>
+    </blockquote>
+</div>
+<div class="modal-body">
+    <div class="form-group row modal-row" ng-controller="SelectizeTagsCtrl">
+        <label for="selectTags">Choose tags:</label>
+        <selectize id="selectTags" placeholder='Pick tags...' options='tags' config="multipleConfig" ng-model="selectedTagService.selectedItems" ng-disabled='disable' required='true'></selectize>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="modalBtn" ng-click="ok()">OK</button>
+    <button class="modalBtn" ng-click="cancel()">Cancel</button>
+</div>

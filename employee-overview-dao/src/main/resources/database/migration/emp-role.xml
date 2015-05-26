@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="7" author="fmamic">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="SYSTEM" tableName="EMP_ROLE" />
+            </not>
+        </preConditions>
+        <createTable tableName="EMP_ROLE">
+            <column name="ROLE_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="ROLE_PK" />
+            </column>
+            <column name="ROLE_NAME" type="VARCHAR(50)" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

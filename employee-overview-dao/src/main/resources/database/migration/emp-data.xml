@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="100000" author="fmamic">
+
+        <insert tableName="EMP_ROLE">
+            <column name="ROLE_ID" value="1"/>
+            <column name="ROLE_NAME" value="ROLE_ADMIN"/>
+        </insert>
+        <insert tableName="EMP_ROLE">
+            <column name="ROLE_ID" value="2"/>
+            <column name="ROLE_NAME" value="ROLE_USER"/>
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="1" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Programming language" />
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="2" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Managment" />
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="3" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Human skill" />
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="4" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Database" />
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="5" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Data Warehouse" />
+        </insert>
+        <insert tableName="EMP_TAG_TYPE">
+            <column name="TGT_ID" value="6" />
+            <column name="TGT_VERSION" value="1" />
+            <column name="TGT_NAME" value="Build tool" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ"  />
+            <column name="TAG_NAME" value="Java" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Java" />
+            <column name="TAG_DESCRIPTION" value="Java Programming Language" />
+            <column name="TAG_LINK" value="http://www.google.com" />
+            <column name="TAG_TGT_ID" value="1" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="Groovy" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Groovy" />
+            <column name="TAG_DESCRIPTION" value="Groovy Programming Language" />
+            <column name="TAG_LINK" value="http://www.groovy.com" />
+            <column name="TAG_TGT_ID" value="1" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="Leadership" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Leadership" />
+            <column name="TAG_DESCRIPTION" value="Project leadership" />
+            <column name="TAG_LINK" value="http://leadership.com" />
+            <column name="TAG_TGT_ID" value="2" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="Liquibase" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Liquibase" />
+            <column name="TAG_DESCRIPTION" value="Liquibase" />
+            <column name="TAG_LINK" value="http://leadership.com" />
+            <column name="TAG_TGT_ID" value="3" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="PL/SQL" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#PL/SQL" />
+            <column name="TAG_DESCRIPTION" value="PL/SQL" />
+            <column name="TAG_LINK" value="http://leadership.com" />
+            <column name="TAG_TGT_ID" value="3" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="Maven" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Maven" />
+            <column name="TAG_DESCRIPTION" value="Maven" />
+            <column name="TAG_LINK" value="http://leadership.com" />
+            <column name="TAG_TGT_ID" value="6" />
+        </insert>
+        <insert tableName="EMP_TAG">
+            <column name="TAG_ID" valueSequenceNext="TAG_SEQ" />
+            <column name="TAG_NAME" value="Gradle" />
+            <column name="TAG_VERSION" value="0" />
+            <column name="TAG_DISPLAY_NAME" value="#Gradle" />
+            <column name="TAG_DESCRIPTION" value="Gradle" />
+            <column name="TAG_LINK" value="http://leadership.com" />
+            <column name="TAG_TGT_ID" value="6" />
+        </insert>
+        <insert tableName="EMP_PROJECT">
+            <column name="PRO_ID" value="6" />
+            <column name="PRO_VERSION" value="1" />
+            <column name="PRO_NAME" value="Employee Overview Application" />
+            <column name="PRO_DESCRIPTION" value="Project Description" />
+            <column name="PRO_FROM_DATE" value="2011-09-14" />
+            <column name="PRO_TO_DATE" value="2011-09-15" />
+        </insert>
+        <insert tableName="EMP_USER">
+            <column name="USR_ID" value="3" />
+            <column name="USR_VERSION" value="1" />
+            <column name="USR_USERNAME" value="sluksic" />
+            <column name="USR_PASSWORD" value="sluksic" />
+            <column name="USR_NAME" value="Stjepan Lukšić" />
+            <column name="USR_WORK_PLACE" value="Zagreb, CROZ" />
+            <column name="USR_CELL_PHONE" value="098-8894-466" />
+            <column name="USR_EMAIL" value="sluksic@croz.net" />
+            <column name="USR_PICTURE" value="http://api.randomuser.me/portraits/med/men/25.jpg" />
+            <column name="USR_POSITION" value="Bussiness Analyst" />
+            <column name="USR_PHONE" value="468-311-444" />
+            <column name="USR_DATE_OF_BIRTH" value="1982-4-17" />
+            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_ROLE_ID" value="1" />
+        </insert>
+        <insert tableName="EMP_USER">
+            <column name="USR_ID" value="4" />
+            <column name="USR_VERSION" value="1" />
+            <column name="USR_USERNAME" value="isporer" />
+            <column name="USR_PASSWORD" value="isporer" />
+            <column name="USR_NAME" value="Irena Šporer-Jurišević" />
+            <column name="USR_WORK_PLACE" value="Zagreb, CROZ" />
+            <column name="USR_CELL_PHONE" value="098-1247-416" />
+            <column name="USR_EMAIL" value="isporer@croz.net" />
+            <column name="USR_PICTURE" value="http://api.randomuser.me/portraits/med/women/25.jpg" />
+            <column name="USR_POSITION" value="Project Manager" />
+            <column name="USR_PHONE" value="414-311-842" />
+            <column name="USR_DATE_OF_BIRTH" value="1985-1-11" />
+            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_ROLE_ID" value="1" />
+        </insert>
+        <insert tableName="EMP_USER">
+            <column name="USR_ID" value="1" />
+            <column name="USR_VERSION" value="1" />
+            <column name="USR_USERNAME" value="fmamic" />
+            <column name="USR_PASSWORD" value="fmamic" />
+            <column name="USR_NAME" value="Filip Mamić" />
+            <column name="USR_WORK_PLACE" value="Zagreb, CROZ" />
+            <column name="USR_CELL_PHONE" value="97012489120" />
+            <column name="USR_EMAIL" value="fmamic@croz.net" />
+            <column name="USR_PICTURE" value="http://api.randomuser.me/portraits/med/men/23.jpg" />
+            <column name="USR_POSITION" value="Software developer" />
+            <column name="USR_PHONE" value="000-333-444" />
+            <column name="USR_DATE_OF_BIRTH" value="1990-10-19" />
+            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_ROLE_ID" value="1" />
+            <column name="USR_MAN_ID" value="4" />
+        </insert>
+        <insert tableName="EMP_USER">
+            <column name="USR_ID" value="2" />
+            <column name="USR_VERSION" value="1" />
+            <column name="USR_USERNAME" value="dpopovic" />
+            <column name="USR_PASSWORD" value="dpopovic" />
+            <column name="USR_NAME" value="Danijel Popović" />
+            <column name="USR_WORK_PLACE" value="Zagreb, CROZ" />
+            <column name="USR_CELL_PHONE" value="098-9735-366" />
+            <column name="USR_EMAIL" value="dpopovic@croz.net" />
+            <column name="USR_PICTURE" value="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/4/005/09a/253/02f2b8d.jpg" />
+            <column name="USR_POSITION" value="Bussiness Analyst" />
+            <column name="USR_PHONE" value="000-333-444" />
+            <column name="USR_DATE_OF_BIRTH" value="1990-9-19" />
+            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_ROLE_ID" value="1" />
+            <column name="USR_MAN_ID" value="3" />
+        </insert>
+        <insert tableName="EMP_USER">
+            <column name="USR_ID" value="5" />
+            <column name="USR_VERSION" value="1" />
+            <column name="USR_USERNAME" value="bjagic" />
+            <column name="USR_PASSWORD" value="bjagic" />
+            <column name="USR_NAME" value="Bruno Jagić" />
+            <column name="USR_WORK_PLACE" value="Zagreb, CROZ" />
+            <column name="USR_CELL_PHONE" value="091-502-4936" />
+            <column name="USR_EMAIL" value="bjagic@croz.net" />
+            <column name="USR_PICTURE" value="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/005/08b/060/33cb467.jpg" />
+            <column name="USR_POSITION" value="ETL-BI-DWH Intern" />
+            <column name="USR_PHONE" value="000-333-444" />
+            <column name="USR_DATE_OF_BIRTH" value="1991-5-9" />
+            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_ROLE_ID" value="1" />
+            <column name="USR_MAN_ID" value="3" />
+        </insert>
+        <insert tableName="EMP_BADGE_TYPE">
+            <column name="BDT_ID" value="1" />
+            <column name="BDT_VERSION" value="1" />
+            <column name="BDT_NAME" value="Education" />
+            <column name="BDT_PERMISSION" value="1" />
+            <column name="BDT_USR_ID" value="1" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="Faculty of Electrical Engineering" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="8" />
+            <column name="BDG_DESCRIPTION" value="Master's degree in software engineering. Completed all courses in 5 years time." />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2014-08-1" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="Java SE 7 Programmer" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="1" />
+            <column name="BDG_DESCRIPTION" value="Entry certification level in Java World. Fundamental skills and knowledge." />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2014-05-11" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="Employment date" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="1" />
+            <column name="BDG_DESCRIPTION" value="Started working at CROZ as Software engineer Intern." />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2014-01-19" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="First project completed" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="1" />
+            <column name="BDG_DESCRIPTION" value="Finished his first project at CROZ. Congrats!" />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2015-01-2" />
+        </insert>
+        <insert tableName="USR_TAG">
+            <column name="USR_ID" value="2" />
+            <column name="TAG_ID" value="5" />
+        </insert>
+        <insert tableName="USR_BDG">
+            <column name="USR_ID" value="1" />
+            <column name="BDG_ID" value="1" />
+        </insert>
+        <insert tableName="USR_PRO">
+            <column name="USR_ID" value="1" />
+            <column name="PRO_ID" value="1" />
+        </insert>
+        <insert tableName="PRO_TAG">
+            <column name="PRO_ID" value="1" />
+            <column name="TAG_ID" value="1" />
+        </insert>
+        <insert tableName="BDG_TAG">
+            <column name="BDG_ID" value="1" />
+            <column name="TAG_ID" value="1" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>

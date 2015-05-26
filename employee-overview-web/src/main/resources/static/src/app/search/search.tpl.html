@@ -1,0 +1,35 @@
+<div class="marketing" ng-controller="SearchResultsCtrl">
+    <h2>Results</h2>
+    <hr>
+    <div class="col-md-2">
+        <blockquote class="menu-block">
+            <button class="btn btn-primary btn-menu">People</button>
+        </blockquote>
+        <blockquote class="menu-block">
+            <button class="btn btn-primary btn-menu">Tags</button>
+        </blockquote>
+        <blockquote class="menu-block">
+            <button class="btn btn-primary btn-menu">Badges</button>
+        </blockquote>
+        <blockquote class="menu-block">
+            <button class="btn btn-primary btn-menu">All</button>
+        </blockquote>
+    </div>
+    <div class="col-md-10" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+        <div ng-repeat="log in eventLog track by $index">
+            <blockquote>
+                <div class="row">
+                    <div class="col-md-3">
+                        <img ng-src="{{ person.picture }}"/>
+                    </div>
+                    <div class="col-md-9">
+                        <p><strong>{{ log.name }}</strong></p>
+
+                        <p>{{ log.description }}</p>
+                    </div>
+                </div>
+            </blockquote>
+            <hr>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<form name="tagForm" ng-submit="submitForm(tagForm.$valid)" novalidate>
+    <div class="modal-header">
+        <blockquote class="tagBlock modalBlock"><h3 class="modal-title">Create tag</h3>
+        </blockquote>
+    </div>
+    <div class="modal-body">
+
+        <div class="form-group row modal-row" ng-class="{ 'has-error' : tagForm.name.$invalid && !tagForm.name.$pristine }">
+            <label for="tagName">Name:</label>
+            <input id="tagName" type="text" name="name" class="form-control" ng-model="form.name" required
+                   tooltip="Name is required"
+                   tooltip-placement="top"
+                   tooltip-trigger="mouseenter"
+                   tooltip-enable="tagForm.name.$invalid && !tagForm.name.$pristine">
+        </div>
+        <div class="form-group row modal-row" ng-class="{ 'has-error' : tagForm.displayName.$invalid && !tagForm.displayName.$pristine }">
+            <label for="displayName">Display name:</label>
+            <input id="displayName" name="displayName" type="text" class="form-control" ng-model="form.displayName" required
+                   tooltip="Display name is required"
+                   tooltip-placement="top"
+                   tooltip-trigger="mouseenter"
+                   tooltip-enable="tagForm.displayName.$invalid && !tagForm.displayName.$pristine">
+        </div>
+
+        <div class="form-group row modal-row" ng-controller="SelectizeCtrl">
+            <label for="selectTagType">Tag type:</label>
+            <selectize id="selectTagType" placeholder='Pick tag type...' options='tagTypes' config="singleConfig" ng-model="form.tagType" ng-disabled='disable' required='true'></selectize>
+        </div>
+
+        <div class="form-group row modal-row">
+            <label for="link">Link:</label>
+            <input id="link" type="text" class="form-control" placeholder="Link" ng-model="form.link"
+                   aria-describedby="basic-addon2">
+        </div>
+        <div class="form-group row modal-row">
+            <label for="description">Description:</label>
+            <textarea id="description" class="form-control" rows="4" cols="50" ng-model="form.description"></textarea>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <input class="modalBtn" type="submit" ng-disabled="tagForm.name.$dirty && tagForm.name.$invalid"/>
+        <button class="modalBtn" type="button" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

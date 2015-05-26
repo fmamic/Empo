@@ -1,0 +1,154 @@
+<div class="marketing" ng-controller="ProfileCtrl">
+    <h1 class="page-header">
+        {{ personService.person.name }}
+    </h1>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2">
+                <img class="profilePicture" src="{{ personService.person.picture }}"/>
+            </div>
+            <div class="col-md-10">
+                <blockquote>
+                    <p>{{ personService.person.description }}</p>
+                </blockquote>
+            </div>
+        </div>
+        <h3>Overview</h3>
+        <hr>
+        <div class="row">
+            <div class="col-lg-6 col-sm-12">
+                <blockquote>
+                    <p>
+                        <strong>Current position :</strong>
+                        {{ personService.person.position }}
+                    </p>
+
+                    <p>
+                        <strong>Date of birth :</strong>
+                        {{ personService.person.dateOfBirthStr }}
+                    </p>
+
+                    <p>
+                        <strong>Mentor in firm :</strong>
+                        <a ui-sref="profile.detail({ id:personService.person.managerForm.id })" ui-sref-opts="{reload: true}">{{ personService.person.managerForm.name }}</a>
+                    </p>
+
+                    <p>
+                        <strong>Email : </strong>
+                        {{ personService.person.email }}
+                    </p>
+
+                    <p>
+                        <strong>Phone : </strong>
+                        {{ personService.person.phone }}
+                    </p>
+
+                    <p>
+                        <strong>Cell phone : </strong>
+                        {{ personService.person.cellPhone }}
+                    </p>
+
+                    <p>
+                        <strong>Work Place : </strong>
+                        {{ personService.person.workPlace }}
+                    </p>
+
+                </blockquote>
+            </div>
+            <div class="col-lg-6 col-sm-12" id="radar-chart" ng-controller="RadarCtrl">
+                <canvas id="area" class="chart chart-radar" data="data" labels="labels"
+                        click="onClick"></canvas>
+            </div>
+        </div>
+        <h3>Tags</h3>
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <div ng-repeat="tag in personService.person.tagForm track by $index" class="tag" ng-click="openTag()">
+                    <div class="col-md-2 tagLeft">
+                        <img class="tagImage"
+                             ng-src="{{location}}tag.png"/>
+                    </div>
+                    <div class="col-md-10 tagRight">
+                        <p class="tagText">{{ tag.name }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" ng-controller="AddTagModalCtrl">
+            <div class="col-md-2">
+                <p class="tagBtn" ng-click="open()">Add new tag</p>
+            </div>
+            <div class="col-md-2" ng-controller="ExistingTagCtrl">
+                <p class="tagBtn" ng-click="open()">Add existing tag</p>
+            </div>
+        </div>
+
+        <h3>Badges</h3>
+        <hr>
+        <div class="badges row">
+            <div class="sheet" style="height: 120px" ng-controller="CarouselBadgeCtrl">
+                <carousel>
+                    <slide ng-repeat="slide in slides" active="slide.active">
+                        <div ng-repeat="badge in slide.badges" class="col-md-4">
+                            <div class="col-md-4">
+                                <blockquote class="badgeBlock badgeCarousel">
+                                    <img ng-src="{{location}}{{badge.image}}.png"/>
+                                    <span>Level&nbsp;{{badge.level}}</span>
+                                </blockquote>
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>{{badge.name}}</strong></p>
+                                <p>{{badge.description}}</p>
+                            </div>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+        </div>
+        <div class="row" ng-controller="TimelineBadgeCtrl">
+            <div id="timelineBadge" class="timeline-tgt">
+            </div>
+        </div>
+        <div class="row" ng-controller="AddBadgeModalCtrl">
+            <div class="col-md-2">
+                <p class="tagBtn" ng-click="open()">Add new badge</p>
+            </div>
+            <div class="col-md-2" ng-controller="ExistingBadgeCtrl">
+                <p class="tagBtn" ng-click="open()">Add existing badge</p>
+            </div>
+        </div>
+        <h3>Projects</h3>
+        <hr>
+
+        <div class="badges row">
+            <div class="sheet" style="height: 120px" ng-controller="CarouselProjectCtrl">
+                <carousel>
+                    <slide ng-repeat="slide in slides" active="slide.active">
+                        <div ng-repeat="project in slide.projects" class="col-md-4">
+                            <div class="col-md-4">
+                                <blockquote class="projectBlock">
+                                    <img ng-src="{{location}}project.png"/>
+                                </blockquote>
+                            </div>
+                            <div class="col-md-8">
+                                <p><strong>{{project.title}}</strong></p>
+                                <p>{{project.description}}</p>
+                            </div>
+                        </div>
+                    </slide>
+                </carousel>
+            </div>
+        </div>
+        <div class="row" ng-controller="TimelineProjectCtrl">
+            <div id="timelineProject" class="timeline-tgt">
+            </div>
+        </div>
+        <div class="row" ng-controller="AddProjectModalCtrl">
+            <div class="col-md-12">
+                <p class="tagBtn" ng-click="open()">Add new project</p>
+            </div>
+        </div>
+    </div>
+</div>

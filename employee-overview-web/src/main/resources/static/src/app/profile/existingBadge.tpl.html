@@ -1,0 +1,15 @@
+<div class="modal-header">
+    <blockquote class="badgeBlock modalBlock"><h3 class="modal-title">Choose existing badges</h3>
+    </blockquote>
+</div>
+<div class="modal-body">
+    <div class="form-group row modal-row" ng-controller="SelectizeBadgesCtrl">
+        <label for="selectBadges">Choose badges:</label>
+        <selectize id="selectBadges" placeholder='Pick badges...' options='badgesList' config="multipleConfig" ng-model="selectedBadgeService.selectedItems" ng-disabled='disable' required='true'></selectize>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button class="modalBtn" ng-click="ok()">OK</button>
+    <button class="modalBtn" ng-click="cancel()">Cancel</button>
+</div>

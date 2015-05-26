@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="8" author="fmamic">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="SYSTEM" tableName="EMP_TAG" />
+            </not>
+        </preConditions>
+        <createTable tableName="EMP_TAG">
+            <column name="TAG_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="TAG_PK" />
+            </column>
+            <column name="TAG_VERSION" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="TAG_NAME" type="VARCHAR(100)" />
+            <column name="TAG_DISPLAY_NAME" type="VARCHAR(100)" />
+            <column name="TAG_DESCRIPTION" type="CLOB" />
+            <column name="TAG_LINK" type="VARCHAR(150)" />
+
+            <column name="TAG_TGT_ID" type="BIGINT">
+                <constraints foreignKeyName="TAG_TGT_FK" references="EMP_TAG_TYPE(TGT_ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,41 @@
+<form name="badgeForm" ng-submit="saveBadge(badgeForm.$valid)" novalidate>
+    <div class="modal-header">
+        <blockquote class="badgeBlock modalBlock"><h3 class="modal-title">Create badge</h3>
+        </blockquote>
+    </div>
+    <div class="modal-body">
+        <div class="form-group row modal-row">
+            <label for="badgeName">Name:</label>
+            <input id="badgeName" type="text" class="form-control" placeholder="Name" ng-model="form.name">
+        </div>
+        <div class="form-group row modal-row">
+            <label for="badgeDname">Display name:</label>
+            <input id="badgeDname" type="text" class="form-control" placeholder="Display name" ng-model="form.displayName">
+        </div>
+        <div class="form-group row modal-row" ng-controller="SelectizeTagsCtrl">
+            <label for="selectTag">Tag:</label>
+            <selectize id="selectTag" placeholder='Pick tag...' options='tags' config="singleConfig" ng-model="form.tag" ng-disabled='disable' required='true'></selectize>
+        </div>
+        <div class="form-group row modal-row" ng-controller="SelectBadgeTypeCtrl">
+            <label for="selectBadgeType">Badge type:</label>
+            <selectize id="selectBadgeType" placeholder='Pick badge type...' options='badgeTypes' config="singleConfig" ng-model="form.badgeType" ng-disabled='disable' required='true'></selectize>
+        </div>
+        <div class="form-group row modal-row" ng-controller="BadgeRatingCtrl">
+            <label for="level">Level:</label>
+
+            <p id="level">
+                <rating value="form.level" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+                      ng-show="overStar && !isReadonly">{{percent}}%</span>
+            </p>
+        </div>
+        <div class="form-group row modal-row">
+            <label for="badgeDesc">Description:</label>
+            <textarea ng-model="form.description" id="badgeDesc" class="form-control" rows="4" cols="50"></textarea>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="modalBtn" type="submit">OK</button>
+        <button class="modalBtn" ng-click="cancel()">Cancel</button>
+    </div>
+</form>

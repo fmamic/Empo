@@ -1,0 +1,54 @@
+<div class="modal-header">
+    <blockquote class="projectBlock modalBlock"><h3 class="modal-title">Create
+        project</h3></blockquote>
+</div>
+<div class="modal-body">
+    <div class="row modal-row">
+        <label for="projectTags">Project tags:</label>
+        <select id="projectTags" selectize="config" ng-options="tag in tagTypes" ng-model="selected"></select>
+    </div>
+    <div class="row modal-row">
+        <label for="members">Members:</label>
+        <select id="members" selectize="config" ng-options="tag in tagTypes" ng-model="selected"></select>
+    </div>
+
+    <div class="row modal-row" ng-controller="StartDateCtrl">
+        <label for="startDate">Start date:</label>
+
+        <p class="input-group">
+            <input id="startDate" type="text" class="form-control"
+                   datepicker-popup="{{format}}" ng-model="dt"
+                   is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                   datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                   ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+        </p>
+    </div>
+    <div class="row modal-row" ng-controller="EndDateCtrl">
+        <label for="endDate">End date:</label>
+
+        <p class="input-group">
+            <input id="endDate" type="text" class="form-control"
+                   datepicker-popup="{{format}}" ng-model="dt"
+                   is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                   datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                   ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+        </p>
+    </div>
+
+    <div class="row modal-row">
+        <label for="projectDesc">Description:</label>
+        <textarea id="projectDesc" class="form-control" rows="4" cols="50"></textarea>
+    </div>
+</div>
+<div class="modal-footer">
+    <button class="modalBtn" ng-click="ok()">OK</button>
+    <button class="modalBtn" ng-click="cancel()">Cancel</button>
+</div>

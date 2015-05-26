@@ -1,0 +1,126 @@
+<div class="marketing" ng-controller="PersonCtrl">
+    <h1 class="page-header">
+        Add person
+    </h1>
+
+    <div class="row col-md-offset-01">
+        <div class="row bottom-offset">
+            <div class="col-md-5">
+                <label for="firstName">First name:</label>
+                <input id="firstName" type="text" class="form-control"
+                       placeholder="Person first name"
+                       aria-describedby="basic-addon2">
+            </div>
+            <div class="col-md-5">
+                <label for="lastName">Last name:</label>
+                <input id="lastName" type="text" class="form-control" placeholder="Person last name"
+                       aria-describedby="basic-addon2">
+            </div>
+        </div>
+
+        <div class="row bottom-offset">
+            <div class="col-md-5" ng-controller="BirthDateController">
+                <label for="dateOfBirht">Date of Birth:</label>
+
+                <p class="input-group">
+                    <input id="dateOfBirht" type="text" class="form-control"
+                           datepicker-popup="{{format}}" ng-model="dt"
+                           is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                           datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                           ng-required="true" close-text="Close"/>
+              <span class="input-group-btn">
+                <button type="button" class="btn btn-default" ng-click="open($event)"><i
+                        class="glyphicon glyphicon-calendar"></i></button>
+              </span>
+                </p>
+            </div>
+        </div>
+
+        <div class="row bottom-offset">
+            <div class="col-md-5">
+                <label for="username">Username:</label>
+                <input id="username" type="text" class="form-control" placeholder="Username"
+                       aria-describedby="basic-addon2">
+            </div>
+        </div>
+
+        <div class="row bottom-offset">
+            <div class="col-md-5">
+                <label for="password">Password:</label>
+                <input id="password" type="password" class="form-control" placeholder="Password"
+                       aria-describedby="basic-addon2">
+            </div>
+            <div class="col-md-5">
+                <label for="cpassword">Confirm password:</label>
+                <input id="cpassword" type="password" class="form-control"
+                       placeholder="Confirm password"
+                       aria-describedby="basic-addon2">
+            </div>
+        </div>
+        <div class="row bottom-offset">
+            <div class="col-md-5">
+                <label for="position">Position:</label>
+                <input id="position" type="text" class="form-control" placeholder="Position"
+                       aria-describedby="basic-addon2">
+            </div>
+            <div class="col-md-5">
+                <label for="title">Title:</label>
+                <input id="title" type="text" class="form-control" placeholder="Title"
+                       aria-describedby="basic-addon2">
+            </div>
+        </div>
+
+        <div class="row bottom-offset">
+            <div class="col-md-5">
+                <label for="position">Phone:</label>
+                <input id="phone" type="text" class="form-control" placeholder="Phone"
+                       aria-describedby="basic-addon2">
+            </div>
+            <div class="col-md-5">
+                <label for="fax">Fax:</label>
+                <input id="fax" type="text" class="form-control" placeholder="Fax"
+                       aria-describedby="basic-addon2">
+            </div>
+        </div>
+        <div class="row bottom-offset">
+            <div class="col-md-7">
+                <label for="description">Description:</label>
+                <textarea id="description" class="form-control" rows="4" cols="50"></textarea>
+            </div>
+        </div>
+
+        <h3 class="page-header">
+            Tags
+        </h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="tagBtn">Add new tag</p>
+            </div>
+        </div>
+        <h3 class="page-header">
+            Badges
+        </h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="tagBtn">Add new badge</p>
+            </div>
+        </div>
+        <h3 class="page-header">
+            Projects
+        </h3>
+
+        <div class="row">
+            <div class="col-md-12">
+                <p class="tagBtn">Add new project</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-md-offset-5">
+                <button class="btn btn-primary btn-empo">Save</button>
+                <button class="btn btn-primary btn-empo">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
