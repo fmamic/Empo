@@ -3,9 +3,12 @@ package net.employee.overview.model.entity;
 import net.employee.overview.model.Persistable;
 import net.employee.overview.model.entity.User;
 import net.employee.overview.model.enums.BadgePermission;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 
+@Audited
 @Entity
 @Table(name = "EMP_BADGE_TYPE")
 @SequenceGenerator(name = "BDT_SEQ", sequenceName = "BDT_SEQ", allocationSize = 1)
@@ -24,6 +27,7 @@ public class BadgeType extends Persistable {
     @JoinColumn(name = "BDT_USR_ID", foreignKey = @ForeignKey(name = "BDT_USR_FK"))
     private User owner;
 
+    @NotAudited
     @Column(name = "BDT_PERMISSION")
     private BadgePermission badgePermission;
 

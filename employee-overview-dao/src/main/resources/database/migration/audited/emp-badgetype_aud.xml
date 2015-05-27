@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="2" author="fmamic">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="SYSTEM" tableName="EMP_BADGE_TYPE" />
+            </not>
+        </preConditions>
+        <createTable tableName="EMP_BADGE_TYPE">
+            <column name="BDT_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="BDT_PK" />
+            </column>
+            <column name="BDT_VERSION" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="BDT_USR_ID" type="BIGINT">
+                <constraints foreignKeyName="BDT_USR_FK" references="EMP_USER(USR_ID)"/>
+            </column>
+
+            <column name="BDT_NAME" type="VARCHAR(50)" />
+            <column name="BDT_PERMISSION" type="VARCHAR(50)" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

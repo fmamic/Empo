@@ -49,10 +49,10 @@ var profile = angular.module('ngBoilerplate.profile', [
             title: 'Title'
         };
     }).controller("RadarCtrl", function ($scope) {
-        $scope.labels = ["Tags", "Experiance", "Badges", "Projects", "Average rating"];
+        $scope.labels = ["Tagovi", "Iskustvo", "Badževi", "Projekti", "Prosječni level"];
 
         $scope.data = [
-            [25, 30, 13, 19, 10]
+            [12, 25, 3, 10, 19]
         ];
     }).controller('AddTagModalCtrl', function ($scope, $modal) {
         $scope.animation = true;
@@ -301,29 +301,31 @@ profile.controller('SelectizeCtrl', function ($scope, $location, $http) {
     };
 });
 
-profile.controller('TimelineBadgeCtrl', function ($scope, $timeout, $http, $location) {
+profile.controller('TimelineBadgeCtrl', function ($scope, personService) {
     $scope.events = [];
+    $scope.$watch('personService.person', function (person) {
+        var personBadges = person.badgeForm;
 
-    $http.get($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/badges/all').
-        success(function (data) {
-            $.each(data, function (index, value) {
-
+        if (personBadges != null) {
+            $scope.events = [];
+            $.each(personBadges, function (index, value) {
                 $scope.events.push({dates: [new Date(value.date)], title: value.name, description: value.description});
             });
 
-            $timeout(function () {
-                new Chronoline(document.getElementById("timelineBadge"), $scope.events,
-                    {
-                        animated: true,
-                        tooltips: true,
-                        visibleSpan: DAY_IN_MILLISECONDS * 150,
-                        labelInterval: isHalfMonth,
-                        hashInterval: isHalfMonth,
-                        scrollLeft: prevQuarter,
-                        scrollRight: nextQuarter
-                    });
-            });
-        });
+            $("#timelineBadge").empty();
+
+            new Chronoline(document.getElementById("timelineBadge"), $scope.events,
+                {
+                    animated: true,
+                    tooltips: true,
+                    visibleSpan: DAY_IN_MILLISECONDS * 150,
+                    labelInterval: isHalfMonth,
+                    hashInterval: isHalfMonth,
+                    scrollLeft: prevQuarter,
+                    scrollRight: nextQuarter
+                });
+        }
+    });
 }).service('badgeTimelineService', function () {
     this.badges = [];
 });
@@ -468,6 +470,7 @@ profile.controller('ExistingTagCtrl', function ($scope, $modal) {
 
     $http.post($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/tags/all').
         success(function (data) {
+            $scope.tags = [];
             angular.forEach(data, function (value) {
                 $scope.tags.push({value: value.id, text: value.name});
             });
@@ -492,6 +495,7 @@ profile.controller('ExistingTagCtrl', function ($scope, $modal) {
 
     $http.post($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/badges/all').
         success(function (data) {
+            $scope.badgesList = [];
             angular.forEach(data, function (value) {
                 $scope.badgesList.push({value: value.id, text: value.name});
             });
@@ -535,49 +539,59 @@ profile.controller('ExistingTagCtrl', function ($scope, $modal) {
         $scope.overStar = value;
         $scope.percent = 100 * (value / $scope.max);
     };
-}).controller('CarouselBadgeCtrl', function ($scope, $http, $location, badgeTimelineService) {
-
+}).controller('CarouselBadgeCtrl', function ($scope, personService) {
     $scope.slides = [];
-    $scope.service = badgeTimelineService;
 
-    $http.get($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/badges/all').
-        success(function (data) {
-            $scope.service.badges = data;
+    $scope.$watch('personService.person', function (person) {
+        var personBadges = person.badgeForm;
 
-            $.each(data, function (index) {
+        if (personBadges != null) {
+            $scope.slides = [];
+            $.each(personBadges, function (index) {
                 if (index % 3 === 0) {
                     $scope.badges = [];
-                    $scope.badges.push({name: data[index].name, image: 'cert', level: data[index].level, date: data[index].date, description: data[index].description});
+                    $scope.badges.push({name: personBadges[index].name, image: 'cert', level: personBadges[index].level, date: personBadges[index].date, description: personBadges[index].description});
 
-                    if (index + 1 < data.length) {
-                        $scope.badges.push({name: data[index + 1].name, image: 'badge1', level: data[index + 1].level, date: data[index + 1].date, description: data[index + 1].description});
+                    if (index + 1 < personBadges.length) {
+                        $scope.badges.push({
+                            name: personBadges[index + 1].name,
+                            image: 'badge1',
+                            level: personBadges[index + 1].level,
+                            date: personBadges[index + 1].date,
+                            description: personBadges[index + 1].description
+                        });
                     }
 
-                    if (index + 2 < data.length) {
-                        $scope.badges.push({name: data[index + 2].name, image: 'badge2', level: data[index + 2].level, date: data[index + 2].date, description: data[index + 2].description});
+                    if (index + 2 < personBadges.length) {
+                        $scope.badges.push({
+                            name: personBadges[index + 2].name,
+                            image: 'badge2',
+                            level: personBadges[index + 2].level,
+                            date: personBadges[index + 2].date,
+                            description: personBadges[index + 2].description
+                        });
                     }
                     $scope.slides.push({badges: $scope.badges});
                 }
             });
-        }).
-        error(function (data, status, headers, config) {
-        });
+        }
+    }, true);
 
 }).controller('CarouselProjectCtrl', function ($scope) {
     $scope.slides = [
         {
             projects: [
                 {
-                    title: "MORH Motorna vozila",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    title: "Porezna uprava",
+                    description: "Modeliranje i arhitektura podataka."
                 },
                 {
                     title: "RBA public portal",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    description: "Public web portal za Raiffeisen banku."
                 },
                 {
                     title: "Vipnet RMS",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    description: "Vipnet sustav za registracijus mobilnih uređaja."
                 }
             ]
         },
@@ -585,15 +599,15 @@ profile.controller('ExistingTagCtrl', function ($scope, $modal) {
             projects: [
                 {
                     title: "CrossIdeas integracija",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    description: "Integracija CorssIdeasa i IBM ITIM."
                 },
                 {
                     title: "AKD ERV",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    description: "Evidencija radnog vremena AKD"
                 },
                 {
                     title: "MORH EVRA",
-                    description: "Certification description s known as prototypical inheritance, and child scopes prototypically inherit from"
+                    description: "Evidencija računala i računalnih sustava."
                 }
             ]
         }];

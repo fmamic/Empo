@@ -12,11 +12,21 @@
     <include file="classpath:/database/migration/emp-badge.xml" />
     <include file="classpath:/database/migration/emp-project.xml" />
 
+    <include file="classpath:/database/migration/audited/emp-project_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-badge_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-tag_aud.xml" />
+
     <include file="classpath:/database/migration/link-table/emp-bdg-tag.xml" />
     <include file="classpath:/database/migration/link-table/emp-pro-tag.xml" />
     <include file="classpath:/database/migration/link-table/emp-usr-bdg.xml" />
     <include file="classpath:/database/migration/link-table/emp-usr-pro.xml" />
     <include file="classpath:/database/migration/link-table/emp-usr-tag.xml" />
+
+    <include file="classpath:/database/migration/audited/emp-bdg-tag_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-pro-tag_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-usr-bdg_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-usr-pro_aud.xml" />
+    <include file="classpath:/database/migration/audited/emp-usr-tag_aud.xml" />
 
     <!-- DATA FILE -->
     <include file="classpath:/database/migration/emp-data.xml"/>

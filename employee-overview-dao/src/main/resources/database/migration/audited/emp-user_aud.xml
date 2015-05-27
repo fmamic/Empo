@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="10" author="fmamic">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="SYSTEM" tableName="EMP_USER" />
+            </not>
+        </preConditions>
+        <createTable tableName="EMP_USER">
+            <column name="USR_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="USR_PK" />
+            </column>
+            <column name="USR_VERSION" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+            <column name="USR_USERNAME" type="VARCHAR(50)" />
+            <column name="USR_PASSWORD" type="VARCHAR(50)" />
+            <column name="USR_PICTURE" type="VARCHAR(100)" />
+            <column name="USR_NAME" type="VARCHAR(150)" />
+            <column name="USR_POSITION" type="VARCHAR(50)" />
+            <column name="USR_PHONE" type="VARCHAR(50)" />
+            <column name="USR_DESCRIPTION" type="CLOB" />
+            <column name="USR_EMAIL" type="VARCHAR(50)" />
+            <column name="USR_WORK_PLACE" type="VARCHAR(50)" />
+            <column name="USR_CELL_PHONE" type="VARCHAR(50)" />
+            <column name="USR_DATE_OF_BIRTH" type="DATE" />
+            <column name="USR_ROLE_ID" type="BIGINT">
+                <constraints foreignKeyName="USR_ROLE_FK" references="EMP_ROLE(ROLE_ID)"/>
+            </column>
+            <column name="USR_MAN_ID" type="BIGINT">
+                <constraints foreignKeyName="USR_MAN_FK" references="EMP_USER(USR_ID)"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

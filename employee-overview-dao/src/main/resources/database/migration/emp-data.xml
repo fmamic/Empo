@@ -191,10 +191,10 @@
             <column name="USR_CELL_PHONE" value="091-502-4936" />
             <column name="USR_EMAIL" value="bjagic@croz.net" />
             <column name="USR_PICTURE" value="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/1/005/08b/060/33cb467.jpg" />
-            <column name="USR_POSITION" value="ETL-BI-DWH Intern" />
+            <column name="USR_POSITION" value="ETL-BI-DWH Pripravnik" />
             <column name="USR_PHONE" value="000-333-444" />
             <column name="USR_DATE_OF_BIRTH" value="1991-5-9" />
-            <column name="USR_DESCRIPTION" value="When Angular evaluates name, it first looks at the scope associated with the given element for the name property. If no such property is found, it searches the parent scope and so on until the root scope is reached. In JavaScript this behavior is known as prototypical inheritance, and child scopes prototypically inherit from their parents. This example illustrates scopes in application, and prototypical inheritance of properties. The example is followed by a diagram depicting the scope boundaries." />
+            <column name="USR_DESCRIPTION" value="Prijašnje iskustvo rada u Iskonu mu je donijelo dobru podlogu u radu s bazama podataka i data warehouse. Područja interesa su mu računarska znanost i analiza podataka. Također ima iskustva u modeliranju baze podataka, strojnom učenju te SQL. Obožava rad s podacima i pretvaranje podataka u korisne informacije. U slobodno vrijeme se bavi sportom, igra nogomet te vozi bicikl oko Jaruna. Voli i socijalne aktivnosti te druženje s prijateljima iz osnovne škole." />
             <column name="USR_ROLE_ID" value="1" />
             <column name="USR_MAN_ID" value="3" />
         </insert>
@@ -208,54 +208,84 @@
         <insert tableName="EMP_BADGE">
             <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
             <column name="BDG_VERSION" value="1" />
-            <column name="BDG_NAME" value="Faculty of Electrical Engineering" />
+            <column name="BDG_NAME" value="Fakultet Elektrotehnike i računarstva" />
             <column name="BDG_TAG_ID" value="1" />
             <column name="BDG_BDT_ID" value="1" />
-            <column name="BDG_LEVEL" value="8" />
-            <column name="BDG_DESCRIPTION" value="Master's degree in software engineering. Completed all courses in 5 years time." />
+            <column name="BDG_LEVEL" value="5" />
+            <column name="BDG_DESCRIPTION" value="Stekao je zvanje bakalara u područuju telekomunikacija." />
             <column name="BDG_USR_ID" value="4" />
             <column name="BDG_DATE" value="2014-08-1" />
         </insert>
         <insert tableName="EMP_BADGE">
             <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
             <column name="BDG_VERSION" value="1" />
-            <column name="BDG_NAME" value="Java SE 7 Programmer" />
+            <column name="BDG_NAME" value="Fakultet Elektrotehnike i računarstva" />
             <column name="BDG_TAG_ID" value="1" />
             <column name="BDG_BDT_ID" value="1" />
-            <column name="BDG_LEVEL" value="1" />
-            <column name="BDG_DESCRIPTION" value="Entry certification level in Java World. Fundamental skills and knowledge." />
+            <column name="BDG_LEVEL" value="8" />
+            <column name="BDG_DESCRIPTION" value="Stekao je zvanje magistra u područuju telekomunikacijskih thenologija." />
             <column name="BDG_USR_ID" value="4" />
-            <column name="BDG_DATE" value="2014-05-11" />
+            <column name="BDG_DATE" value="2015-04-1" />
         </insert>
         <insert tableName="EMP_BADGE">
             <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
             <column name="BDG_VERSION" value="1" />
-            <column name="BDG_NAME" value="Employment date" />
+            <column name="BDG_NAME" value="Java SE 7 Programer" />
             <column name="BDG_TAG_ID" value="1" />
             <column name="BDG_BDT_ID" value="1" />
             <column name="BDG_LEVEL" value="1" />
-            <column name="BDG_DESCRIPTION" value="Started working at CROZ as Software engineer Intern." />
+            <column name="BDG_DESCRIPTION" value="Početni certifikat za Oracle Java developera." />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2015-05-11" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="Zaposlenje u CROZu" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="1" />
+            <column name="BDG_DESCRIPTION" value="Datum početka zaposlenja u CROZu." />
             <column name="BDG_USR_ID" value="4" />
             <column name="BDG_DATE" value="2014-01-19" />
         </insert>
         <insert tableName="EMP_BADGE">
             <column name="BDG_ID"  valueSequenceNext="BDG_SEQ" />
             <column name="BDG_VERSION" value="1" />
-            <column name="BDG_NAME" value="First project completed" />
+            <column name="BDG_NAME" value="Završen prvi projekt" />
             <column name="BDG_TAG_ID" value="1" />
             <column name="BDG_BDT_ID" value="1" />
             <column name="BDG_LEVEL" value="1" />
-            <column name="BDG_DESCRIPTION" value="Finished his first project at CROZ. Congrats!" />
+            <column name="BDG_DESCRIPTION" value="Završen prvi projekt u CROZu." />
             <column name="BDG_USR_ID" value="4" />
             <column name="BDG_DATE" value="2015-01-2" />
+        </insert>
+        <insert tableName="EMP_BADGE">
+            <column name="BDG_ID" valueSequenceNext="BDG_SEQ" />
+            <column name="BDG_VERSION" value="1" />
+            <column name="BDG_NAME" value="Određeno 200 sati" />
+            <column name="BDG_TAG_ID" value="1" />
+            <column name="BDG_BDT_ID" value="1" />
+            <column name="BDG_LEVEL" value="7" />
+            <column name="BDG_DESCRIPTION" value="Odrađeno je 200 sati na projektu." />
+            <column name="BDG_USR_ID" value="4" />
+            <column name="BDG_DATE" value="2015-05-17" />
         </insert>
         <insert tableName="USR_TAG">
             <column name="USR_ID" value="2" />
             <column name="TAG_ID" value="5" />
         </insert>
         <insert tableName="USR_BDG">
-            <column name="USR_ID" value="1" />
+            <column name="USR_ID" value="5" />
             <column name="BDG_ID" value="1" />
+        </insert>
+        <insert tableName="USR_BDG">
+            <column name="USR_ID" value="5" />
+            <column name="BDG_ID" value="2" />
+        </insert>
+        <insert tableName="USR_BDG">
+            <column name="USR_ID" value="5" />
+            <column name="BDG_ID" value="3" />
         </insert>
         <insert tableName="USR_PRO">
             <column name="USR_ID" value="1" />

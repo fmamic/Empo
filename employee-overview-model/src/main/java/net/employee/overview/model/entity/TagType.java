@@ -1,9 +1,11 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
+@Audited
 @Entity
 @Table(name = "EMP_TAG_TYPE")
 @SequenceGenerator(name = "TGT_SEQ", sequenceName = "TGT_SEQ", allocationSize = 1)

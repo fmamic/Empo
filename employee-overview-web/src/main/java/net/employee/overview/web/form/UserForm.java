@@ -3,7 +3,6 @@ package net.employee.overview.web.form;
 import net.employee.overview.model.code.Role;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class UserForm {
@@ -33,6 +32,8 @@ public class UserForm {
     private String dateOfBirthStr;
 
     private List<TagForm> tagForm = new ArrayList<TagForm>();
+
+    private List<BadgeForm> badgeForm = new ArrayList<BadgeForm>();
 
     private Role role;
 
@@ -156,5 +157,13 @@ public class UserForm {
 
     public void setTagForm(final List<TagForm> p_tagForm) {
         tagForm = p_tagForm;
+    }
+
+    public List<BadgeForm> getBadgeForm() {
+        return badgeForm;
+    }
+
+    public void setBadgeForm(final List<BadgeForm> p_badgeForm) {
+        badgeForm = p_badgeForm;
     }
 }

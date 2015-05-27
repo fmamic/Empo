@@ -3,6 +3,20 @@
     </blockquote>
 </div>
 <div class="modal-body">
+    <div class="form-group row modal-row" ng-controller="StartDateCtrl">
+        <label for="startDate">Date of assignment:</label>
+        <p class="input-group">
+            <input id="startDate" type="text" class="form-control"
+                   datepicker-popup="{{format}}" ng-model="dt"
+                   is-open="opened" min-date="minDate" max-date="'2015-06-22'"
+                   datepicker-options="dateOptions" date-disabled="disabled(date, mode)"
+                   ng-required="true" close-text="Close"/>
+                    <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open($event)">
+                        <i class="glyphicon glyphicon-calendar"></i></button>
+                    </span>
+        </p>
+    </div>
     <div class="form-group row modal-row" ng-controller="SelectizeBadgesCtrl">
         <label for="selectBadges">Choose badges:</label>
         <selectize id="selectBadges" placeholder='Pick badges...' options='badgesList' config="multipleConfig" ng-model="selectedBadgeService.selectedItems" ng-disabled='disable' required='true'></selectize>

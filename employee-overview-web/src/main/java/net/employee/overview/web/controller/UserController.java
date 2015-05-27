@@ -1,9 +1,11 @@
 package net.employee.overview.web.controller;
 
 import net.employee.overview.dao.form.UserFilterForm;
+import net.employee.overview.model.entity.Badge;
 import net.employee.overview.model.entity.Tag;
 import net.employee.overview.model.entity.User;
 import net.employee.overview.service.UserService;
+import net.employee.overview.web.form.BadgeForm;
 import net.employee.overview.web.form.TagForm;
 import net.employee.overview.web.form.UserForm;
 import org.springframework.beans.BeanUtils;
@@ -73,6 +75,12 @@ public class UserController {
             BeanUtils.copyProperties(tag, tagForm);
 
             userForm.getTagForm().add(tagForm);
+        }
+
+        for (final Badge badge : user.getBadges()) {
+            BadgeForm form = new BadgeForm();
+            BeanUtils.copyProperties(badge, form);
+            userForm.getBadgeForm().add(form);
         }
 
         if(user.getManager() != null) {

@@ -1,11 +1,13 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Audited
 @Entity
 @Table(name = "EMP_PROJECT")
 @SequenceGenerator(name = "PRO_SEQ", sequenceName = "PRO_SEQ", allocationSize = 1)

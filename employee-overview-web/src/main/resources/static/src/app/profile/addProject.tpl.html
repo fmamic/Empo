@@ -3,16 +3,16 @@
         project</h3></blockquote>
 </div>
 <div class="modal-body">
-    <div class="row modal-row">
-        <label for="projectTags">Project tags:</label>
-        <select id="projectTags" selectize="config" ng-options="tag in tagTypes" ng-model="selected"></select>
+    <div class="form-group row modal-row" ng-controller="SelectizeTagsCtrl">
+        <label for="selectTags">Choose tags:</label>
+        <selectize id="selectTags" placeholder='Pick tags...' options='tags' config="multipleConfig" ng-model="selectedTagService.selectedItems" ng-disabled='disable' required='true'></selectize>
     </div>
-    <div class="row modal-row">
+    <div class="form-group row modal-row">
         <label for="members">Members:</label>
         <select id="members" selectize="config" ng-options="tag in tagTypes" ng-model="selected"></select>
     </div>
 
-    <div class="row modal-row" ng-controller="StartDateCtrl">
+    <div class="form-group row modal-row" ng-controller="StartDateCtrl">
         <label for="startDate">Start date:</label>
 
         <p class="input-group">
@@ -27,7 +27,7 @@
                     </span>
         </p>
     </div>
-    <div class="row modal-row" ng-controller="EndDateCtrl">
+    <div class="form-group row modal-row" ng-controller="EndDateCtrl">
         <label for="endDate">End date:</label>
 
         <p class="input-group">
@@ -43,7 +43,7 @@
         </p>
     </div>
 
-    <div class="row modal-row">
+    <div class="form-group row modal-row">
         <label for="projectDesc">Description:</label>
         <textarea id="projectDesc" class="form-control" rows="4" cols="50"></textarea>
     </div>

@@ -2,11 +2,14 @@ package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
 import net.employee.overview.model.code.Role;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+@Audited
 @Entity
 @Table(name = "EMP_USER")
 @SequenceGenerator(name = "USR_SEQ", sequenceName = "USR_SEQ", allocationSize = 1)
@@ -66,6 +69,7 @@ public class User extends Persistable {
             @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "BDG_ID") })
     private List<Badge> badges;
 
+    @NotAudited
     @ManyToOne
     @JoinColumn(name = "USR_ROLE_ID", foreignKey = @ForeignKey(name = "USR_ROLE_FK"))
     private Role role;

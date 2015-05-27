@@ -94,8 +94,9 @@
                         <div ng-repeat="badge in slide.badges" class="col-md-4">
                             <div class="col-md-4">
                                 <blockquote class="badgeBlock badgeCarousel">
+                                    <p>{{ badge.date | date : 'dd.MM.yyyy' }}</p>
                                     <img ng-src="{{location}}{{badge.image}}.png"/>
-                                    <span>Level&nbsp;{{badge.level}}</span>
+                                    <p>Level&nbsp;{{badge.level}}</p>
                                 </blockquote>
                             </div>
                             <div class="col-md-8">
@@ -134,6 +135,7 @@
                             </div>
                             <div class="col-md-8">
                                 <p><strong>{{project.title}}</strong></p>
+
                                 <p>{{project.description}}</p>
                             </div>
                         </div>
