@@ -5,8 +5,8 @@ import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
 
-@Audited
 @Entity
+@Audited
 @Table(name = "EMP_TAG_TYPE")
 @SequenceGenerator(name = "TGT_SEQ", sequenceName = "TGT_SEQ", allocationSize = 1)
 @AttributeOverride(name = "version", column = @Column(name = "TGT_VERSION"))

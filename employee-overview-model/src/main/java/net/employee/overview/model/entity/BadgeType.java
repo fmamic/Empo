@@ -8,8 +8,8 @@ import org.hibernate.envers.NotAudited;
 
 import javax.persistence.*;
 
-@Audited
 @Entity
+@Audited
 @Table(name = "EMP_BADGE_TYPE")
 @SequenceGenerator(name = "BDT_SEQ", sequenceName = "BDT_SEQ", allocationSize = 1)
 @AttributeOverride(name = "version", column = @Column(name = "BDT_VERSION"))
@@ -27,7 +27,6 @@ public class BadgeType extends Persistable {
     @JoinColumn(name = "BDT_USR_ID", foreignKey = @ForeignKey(name = "BDT_USR_FK"))
     private User owner;
 
-    @NotAudited
     @Column(name = "BDT_PERMISSION")
     private BadgePermission badgePermission;
 

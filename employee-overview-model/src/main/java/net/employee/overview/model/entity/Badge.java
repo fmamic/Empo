@@ -1,15 +1,17 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Audited
 @Entity
+@Audited
 @Table(name = "EMP_BADGE")
 @SequenceGenerator(name = "BDG_SEQ", sequenceName = "BDG_SEQ", allocationSize = 1)
 @AttributeOverride(name = "version", column = @Column(name = "BDG_VERSION"))
@@ -23,9 +25,10 @@ public class Badge extends Persistable {
     @Column(name = "BDG_NAME")
     private String name;
 
-    @OneToOne
-    @JoinColumn(name = "BDG_TAG_ID", foreignKey = @ForeignKey(name = "BDG_TAG_FK"))
-    private Tag tags;
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(name = "BDG_TAG", joinColumns = {
+        @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "BDG_ID") })
+    private List<Tag> tags;
 
     @ManyToOne
     @JoinColumn(name = "BDG_BDT_ID", foreignKey = @ForeignKey(name = "BDG_BDT_FK"))
@@ -114,14 +117,6 @@ public class Badge extends Persistable {
         creator = p_creator;
     }
 
-    public Tag getTags() {
-        return tags;
-    }
-
-    public void setTags(Tag tags) {
-        this.tags = tags;
-    }
-
     @Override
     public boolean equals(final Object o) {
         if (this == o)
@@ -148,5 +143,13 @@ public class Badge extends Persistable {
 
     public void setImage(final byte[] p_image) {
         image = p_image;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
     }
 }

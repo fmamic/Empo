@@ -72,7 +72,7 @@ public class BadgeController {
 
         badge.setCreator((User) userService.getOne(User.class, badgeForm.getUserId()));
         badge.setBadgeType(badgeService.fetchBadgeType(badgeForm.getBadgeTypeId()));
-        badge.setTags((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
+        badge.getTags().add((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
 
         return badgeService.save(Badge.class, badge) != null;
     }

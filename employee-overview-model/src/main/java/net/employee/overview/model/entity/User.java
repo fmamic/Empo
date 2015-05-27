@@ -2,15 +2,17 @@ package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
 import net.employee.overview.model.code.Role;
+import org.hibernate.envers.AuditJoinTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Audited
 @Entity
+@Audited
 @Table(name = "EMP_USER")
 @SequenceGenerator(name = "USR_SEQ", sequenceName = "USR_SEQ", allocationSize = 1)
 @AttributeOverride(name = "version", column = @Column(name = "USR_VERSION"))
@@ -56,7 +58,7 @@ public class User extends Persistable {
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "USR_PRO", joinColumns = {
-            @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "PRO_ID") })
+            @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "PRO_ID")})
     private List<Project> projects;
 
     @ManyToMany(cascade = CascadeType.ALL)
@@ -69,7 +71,7 @@ public class User extends Persistable {
             @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "BDG_ID") })
     private List<Badge> badges;
 
-    @NotAudited
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name = "USR_ROLE_ID", foreignKey = @ForeignKey(name = "USR_ROLE_FK"))
     private Role role;

@@ -7,8 +7,8 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
-@Audited
 @Entity
+@Audited
 @Table(name = "EMP_PROJECT")
 @SequenceGenerator(name = "PRO_SEQ", sequenceName = "PRO_SEQ", allocationSize = 1)
 @AttributeOverride(name = "version", column = @Column(name = "PRO_VERSION"))
