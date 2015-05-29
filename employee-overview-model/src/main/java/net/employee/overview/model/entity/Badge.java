@@ -25,11 +25,6 @@ public class Badge extends Persistable {
     @Column(name = "BDG_NAME")
     private String name;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "BDG_TAG", joinColumns = {
-        @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "BDG_ID") })
-    private List<Tag> tags;
-
     @ManyToOne
     @JoinColumn(name = "BDG_BDT_ID", foreignKey = @ForeignKey(name = "BDG_BDT_FK"))
     private BadgeType badgeType;
@@ -37,7 +32,7 @@ public class Badge extends Persistable {
     @Column(name = "BDG_LEVEL")
     private Integer level;
 
-    @Column(name = "BDG_DESCRIPTION")
+    @Column(name = "BDG_DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @ManyToOne
@@ -47,8 +42,11 @@ public class Badge extends Persistable {
     @Column(name = "BDG_DATE")
     private Date date;
 
-    @ManyToMany(mappedBy = "badges")
-    private List<User> users;
+    @OneToMany(mappedBy = "badge")
+    private List<BadgeTag> tags;
+
+    @OneToMany(mappedBy = "badge")
+    private List<UserBadge> badges;
 
     @Column(name = "BDG_IMAGE")
     private byte[] image;
@@ -91,14 +89,6 @@ public class Badge extends Persistable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
     }
 
     public Long getId() {
@@ -145,11 +135,19 @@ public class Badge extends Persistable {
         image = p_image;
     }
 
-    public List<Tag> getTags() {
+    public List<UserBadge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(final List<UserBadge> p_badges) {
+        badges = p_badges;
+    }
+
+    public List<BadgeTag> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
+    public void setTags(final List<BadgeTag> p_tags) {
+        tags = p_tags;
     }
 }

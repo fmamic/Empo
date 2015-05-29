@@ -7,12 +7,19 @@
     <changeSet id="16" author="fmamic">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="SYSTEM" tableName="USR_PRO" />
+                <tableExists schemaName="SYSTEM" tableName="EMP_USR_PRO"/>
             </not>
         </preConditions>
-        <createTable tableName="USR_PRO">
-            <column name="USR_ID" type="BIGINT" />
-            <column name="PRO_ID" type="BIGINT" />
+        <createTable tableName="EMP_USR_PRO">
+            <column name="USR_PRO_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="USR_PRO_PK"/>
+            </column>
+            <column name="USR_ID" type="BIGINT">
+                <constraints foreignKeyName="USR_PRO_FK" references="EMP_USER(USR_ID)"/>
+            </column>
+            <column name="PRO_ID" type="BIGINT">
+                <constraints foreignKeyName="PRO_USR_FK" references="EMP_PROJECT(PRO_ID)"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

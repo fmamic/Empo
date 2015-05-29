@@ -5,7 +5,7 @@ import net.employee.overview.model.code.Role;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserForm {
+public class UserForm extends Revision {
 
     private Long id;
 

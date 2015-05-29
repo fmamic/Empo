@@ -17,64 +17,19 @@ angular.module('ngBoilerplate.home', [
     $scope.person = {};
     $scope.location = $location.absUrl().split('/')[0];
 
-    $scope.eventLog = [
-        {
-            name: "John Doe",
-            description: "Certification description s known as prototypical inheritance, and child scopes prototypically"
-        },
-        {
-            name: "Java",
-            description: "Java tag"
+    $scope.eventLog = [];
 
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        }
-    ];
+    $http.get($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/tag/revisions').
+        success(function (data) {
 
-    $scope.eventLog.rest = [
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        },
-        {
-            name: "Badge",
-            description: "Badge of honor"
-        }
-    ];
+            $.each(data, function(index, value) {
+
+                if(value.revisionType == "ADD") {
+                    $scope.eventLog.push({ name: "New Tag has been added.", date: value.revisionDate, description: "New tag named " + value.form.name + " has been added to collection of tags" });
+                }
+
+            });
+        });
 
     $scope.numberLoaded = 0;
 

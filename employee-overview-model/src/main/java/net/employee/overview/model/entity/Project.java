@@ -19,25 +19,23 @@ public class Project extends Persistable {
     @Column(name = "PRO_ID")
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "PRO_TAG", joinColumns = {
-        @JoinColumn(name = "PRO_ID")}, inverseJoinColumns = {@JoinColumn(name = "TAG_ID")})
-    private List<Tag> projectTags;
-
-    @Column(name = "PRO_DESCRIPTION")
+    @Column(name = "PRO_DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @Column(name = "PRO_NAME")
     private String name;
-
-    @ManyToMany(mappedBy = "projects")
-    private List<User> members;
 
     @Column(name = "PRO_FROM_DATE")
     private Date fromDate;
 
     @Column(name = "PRO_TO_DATE")
     private Date toDate;
+
+    @OneToMany(mappedBy = "project")
+    private List<ProjectTag> tags;
+
+    @OneToMany(mappedBy = "project")
+    private List<UserProject> users;
 
     public String getDescription() {
         return description;
@@ -71,14 +69,6 @@ public class Project extends Persistable {
         this.toDate = toDate;
     }
 
-    public List<User> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<User> members) {
-        this.members = members;
-    }
-
     public Long getId() {
         return id;
     }
@@ -87,11 +77,19 @@ public class Project extends Persistable {
         this.id = id;
     }
 
-    public List<Tag> getProjectTags() {
-        return projectTags;
+    public List<ProjectTag> getTags() {
+        return tags;
     }
 
-    public void setProjectTags(final List<Tag> p_projectTags) {
-        projectTags = p_projectTags;
+    public void setTags(final List<ProjectTag> p_tags) {
+        tags = p_tags;
+    }
+
+    public List<UserProject> getUsers() {
+        return users;
+    }
+
+    public void setUsers(final List<UserProject> p_users) {
+        users = p_users;
     }
 }

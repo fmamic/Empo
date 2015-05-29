@@ -28,20 +28,20 @@ public class Tag extends Persistable {
     @Column(name = "TAG_DISPLAY_NAME")
     private String displayName;
 
-    @Column(name = "TAG_DESCRIPTION")
+    @Column(name = "TAG_DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @Column(name = "TAG_LINK")
     private String link;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<User> users;
+    @OneToMany(mappedBy = "tag")
+    private List<UserTag> users;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<Badge> badges;
+    @OneToMany(mappedBy = "tag")
+    private List<BadgeTag> badges;
 
-    @ManyToMany(mappedBy = "projectTags")
-    private List<Project> projects;
+    @OneToMany(mappedBy = "tag")
+    private List<ProjectTag> projects;
 
     public String getName() {
         return name;
@@ -83,36 +83,12 @@ public class Tag extends Persistable {
         this.id = id;
     }
 
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(final List<User> p_users) {
-        users = p_users;
-    }
-
     public String getDisplayName() {
         return displayName;
     }
 
     public void setDisplayName(final String p_displayName) {
         displayName = p_displayName;
-    }
-
-    public List<Badge> getBadges() {
-        return badges;
-    }
-
-    public void setBadges(final List<Badge> p_badges) {
-        badges = p_badges;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(final List<Project> p_projects) {
-        projects = p_projects;
     }
 
     @Override
@@ -133,5 +109,29 @@ public class Tag extends Persistable {
     @Override
     public int hashCode() {
         return id != null ? id.hashCode() : 0;
+    }
+
+    public List<UserTag> getUsers() {
+        return users;
+    }
+
+    public void setUsers(final List<UserTag> p_users) {
+        users = p_users;
+    }
+
+    public List<BadgeTag> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(final List<BadgeTag> p_badges) {
+        badges = p_badges;
+    }
+
+    public List<ProjectTag> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(final List<ProjectTag> p_projects) {
+        projects = p_projects;
     }
 }

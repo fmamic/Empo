@@ -7,12 +7,19 @@
     <changeSet id="12" author="fmamic">
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists schemaName="SYSTEM" tableName="BDG_TAG" />
+                <tableExists schemaName="SYSTEM" tableName="EMP_BDG_TAG" />
             </not>
         </preConditions>
-        <createTable tableName="BDG_TAG">
-            <column name="BDG_ID" type="BIGINT" />
-            <column name="TAG_ID" type="BIGINT" />
+        <createTable tableName="EMP_BDG_TAG">
+            <column name="BDG_TAG_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="BDG_TAG_PK" />
+            </column>
+            <column name="BDG_ID" type="BIGINT">
+                <constraints foreignKeyName="BDG_TAG_FK" references="EMP_BADGE(BDG_ID)"/>
+            </column>
+            <column name="TAG_ID" type="BIGINT">
+                <constraints foreignKeyName="TAG_BDG_FK" references="EMP_TAG(TAG_ID)"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

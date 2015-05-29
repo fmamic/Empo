@@ -44,7 +44,7 @@ public class User extends Persistable {
     @Column(name = "USR_CELL_PHONE")
     private String cellPhone;
 
-    @Column(name = "USR_DESCRIPTION")
+    @Column(name = "USR_DESCRIPTION", columnDefinition = "text")
     private String description;
 
     @Column(name = "USR_EMAIL")
@@ -56,20 +56,14 @@ public class User extends Persistable {
     @Column(name = "USR_DATE_OF_BIRTH")
     private Date dateOfBirth;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USR_PRO", joinColumns = {
-            @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "PRO_ID")})
-    private List<Project> projects;
+    @OneToMany(mappedBy = "user")
+    private List<UserBadge> badges;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USR_TAG", joinColumns = {
-            @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "TAG_ID") })
-    private List<Tag> tags;
+    @OneToMany(mappedBy = "user")
+    private List<UserProject> projects;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "USR_BDG", joinColumns = {
-            @JoinColumn(name = "USR_ID") }, inverseJoinColumns = { @JoinColumn(name = "BDG_ID") })
-    private List<Badge> badges;
+    @OneToMany(mappedBy = "user")
+    private List<UserTag> tags;
 
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
@@ -94,30 +88,6 @@ public class User extends Persistable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public List<Project> getProjects() {
-        return projects;
-    }
-
-    public void setProjects(List<Project> projects) {
-        this.projects = projects;
-    }
-
-    public List<Tag> getTags() {
-        return tags;
-    }
-
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-    public List<Badge> getBadges() {
-        return badges;
-    }
-
-    public void setBadges(List<Badge> badges) {
-        this.badges = badges;
     }
 
     public String getUsername() {
@@ -214,5 +184,29 @@ public class User extends Persistable {
 
     public void setDateOfBirth(final Date p_dateOfBirth) {
         dateOfBirth = p_dateOfBirth;
+    }
+
+    public List<UserBadge> getBadges() {
+        return badges;
+    }
+
+    public void setBadges(final List<UserBadge> p_badges) {
+        badges = p_badges;
+    }
+
+    public List<UserProject> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(final List<UserProject> p_projects) {
+        projects = p_projects;
+    }
+
+    public List<UserTag> getTags() {
+        return tags;
+    }
+
+    public void setTags(final List<UserTag> p_tags) {
+        tags = p_tags;
     }
 }

@@ -28,6 +28,7 @@
         <property name="packagesToScan" value="net.employee.overview.model"/>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
                 <property name="showSql" value="false"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
             </bean>

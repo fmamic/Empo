@@ -1,6 +1,6 @@
 package net.employee.overview.web.form;
 
-public class TagForm {
+public class TagForm extends Revision {
 
     private Long id;
 

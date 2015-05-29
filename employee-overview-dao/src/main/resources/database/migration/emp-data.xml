@@ -108,7 +108,7 @@
             <column name="TAG_TGT_ID" value="6" />
         </insert>
         <insert tableName="EMP_PROJECT">
-            <column name="PRO_ID" value="6" />
+            <column name="PRO_ID" valueSequenceNext="PRO_SEQ" />
             <column name="PRO_VERSION" value="1" />
             <column name="PRO_NAME" value="Employee Overview Application" />
             <column name="PRO_DESCRIPTION" value="Project Description" />
@@ -271,31 +271,38 @@
             <column name="BDG_USR_ID" value="4" />
             <column name="BDG_DATE" value="2015-05-17" />
         </insert>
-        <insert tableName="USR_TAG">
+        <insert tableName="EMP_USR_TAG">
+            <column name="USR_TAG_ID" valueSequenceNext="USR_TAG_SEQ" />
             <column name="USR_ID" value="2" />
             <column name="TAG_ID" value="5" />
         </insert>
-        <insert tableName="USR_BDG">
+        <insert tableName="EMP_USR_BDG">
+            <column name="USR_BDG_ID" valueSequenceNext="USR_BDG_SEQ" />
             <column name="USR_ID" value="5" />
             <column name="BDG_ID" value="1" />
         </insert>
-        <insert tableName="USR_BDG">
+        <insert tableName="EMP_USR_BDG">
+            <column name="USR_BDG_ID" valueSequenceNext="USR_BDG_SEQ" />
             <column name="USR_ID" value="5" />
             <column name="BDG_ID" value="2" />
         </insert>
-        <insert tableName="USR_BDG">
+        <insert tableName="EMP_USR_BDG">
+            <column name="USR_BDG_ID" valueSequenceNext="USR_BDG_SEQ" />
             <column name="USR_ID" value="5" />
             <column name="BDG_ID" value="3" />
         </insert>
-        <insert tableName="USR_PRO">
+        <insert tableName="EMP_USR_PRO">
+            <column name="USR_PRO_ID" valueSequenceNext="USR_PRO_SEQ" />
             <column name="USR_ID" value="1" />
             <column name="PRO_ID" value="1" />
         </insert>
-        <insert tableName="PRO_TAG">
+        <insert tableName="EMP_PRO_TAG">
+            <column name="PRO_TAG_ID" valueSequenceNext="PRO_TAG_SEQ" />
             <column name="PRO_ID" value="1" />
             <column name="TAG_ID" value="1" />
         </insert>
-        <insert tableName="BDG_TAG">
+        <insert tableName="EMP_BDG_TAG">
+            <column name="BDG_TAG_ID" valueSequenceNext="BDG_TAG_SEQ" />
             <column name="BDG_ID" value="1" />
             <column name="TAG_ID" value="1" />
         </insert>

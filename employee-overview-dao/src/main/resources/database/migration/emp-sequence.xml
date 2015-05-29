@@ -45,6 +45,27 @@
                 incrementBy="1"
                 sequenceName="TAG_SEQ"
                 />
+        <createSequence
+                incrementBy="1"
+                sequenceName="BDG_TAG_SEQ"
+                />
+        <createSequence
+                incrementBy="1"
+                sequenceName="PRO_TAG_SEQ"
+                />
+        <createSequence
+                incrementBy="1"
+                sequenceName="USR_BDG_SEQ"
+                />
+        <createSequence
+                incrementBy="1"
+                sequenceName="USR_PRO_SEQ"
+                />
+        <createSequence
+                incrementBy="1"
+                sequenceName="USR_TAG_SEQ"
+                />
+        <createSequence sequenceName="hibernate_sequence" incrementBy="1"/>
     </changeSet>
 
 </databaseChangeLog>

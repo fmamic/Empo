@@ -72,7 +72,7 @@ public class BadgeController {
 
         badge.setCreator((User) userService.getOne(User.class, badgeForm.getUserId()));
         badge.setBadgeType(badgeService.fetchBadgeType(badgeForm.getBadgeTypeId()));
-        badge.getTags().add((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
+//        badge.getTags().add((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
 
         return badgeService.save(Badge.class, badge) != null;
     }
@@ -84,11 +84,11 @@ public class BadgeController {
 
         final List<Badge> badges = badgeService.fetchBadgesByIds(userBadgeForm.getBadgesId());
 
-        for (final Badge badge : badges) {
-            if(!user.getBadges().contains(badge)) {
-                user.getBadges().add(badge);
-            }
-        }
+//        for (final Badge badge : badges) {
+//            if(!user.getBadges().contains(badge)) {
+//                user.getBadges().add(badge);
+//            }
+//        }
 
         return userService.save(User.class, user) != null;
     }

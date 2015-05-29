@@ -11,15 +11,14 @@
 
     <context:annotation-config/>
 
-    <!-- LIQUIBASE -->
-    <bean id="liquibase" class="liquibase.integration.spring.SpringLiquibase">
-        <property name="dataSource" ref="dataSource"/>
-        <property name="changeLog"
-                  value="classpath:/database/migration/emp-database-changelog.xml"/>
-        <property name="dropFirst" value="true"/>
-    </bean>
+    <!--<jdbc:embedded-database id="dataSource" type="H2"/>-->
 
-    <jdbc:embedded-database id="dataSource" type="H2"/>
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost/~/test"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
 
     <!-- SPRING - JPA -->
     <jpa:repositories base-package="net.employee.overview.dao"/>
@@ -35,8 +34,14 @@
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="net.employee.overview.model"/>
+        <property name="jpaProperties">
+            <props>
+                <prop key="hibernate.hbm2ddl.auto">create</prop>
+            </props>
+        </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true" />
                 <property name="showSql" value="false"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
             </bean>
