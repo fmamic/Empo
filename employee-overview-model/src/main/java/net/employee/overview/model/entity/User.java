@@ -2,6 +2,8 @@ package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
 import net.employee.overview.model.code.Role;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.envers.AuditJoinTable;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -208,5 +210,43 @@ public class User extends Persistable {
 
     public void setTags(final List<UserTag> p_tags) {
         tags = p_tags;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof User)) {
+            return false;
+        }
+
+        final EqualsBuilder builder = new EqualsBuilder();
+        final User casted = (User) obj;
+
+        if (getId() != null) {
+            final Long otherId = casted.getId();
+            if (otherId != null) {
+                builder.append(getId(), casted.getId());
+                return builder.isEquals();
+            }
+        }
+
+        builder.append(getName(), casted.getName());
+        builder.append(getPhone(), casted.getPhone());
+        builder.append(getEmail(), casted.getEmail());
+
+        return builder.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        final HashCodeBuilder builder = new HashCodeBuilder();
+
+        builder.append(getName());
+        builder.append(getPhone());
+        builder.append(getEmail());
+
+        return builder.toHashCode();
     }
 }

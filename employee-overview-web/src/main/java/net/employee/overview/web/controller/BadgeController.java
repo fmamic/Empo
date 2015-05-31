@@ -1,22 +1,13 @@
 package net.employee.overview.web.controller;
 
-import net.employee.overview.model.entity.Badge;
-import net.employee.overview.model.entity.BadgeType;
-import net.employee.overview.model.entity.Tag;
-import net.employee.overview.model.entity.User;
-import net.employee.overview.service.BadgeService;
-import net.employee.overview.service.TagService;
-import net.employee.overview.service.UserService;
+import net.employee.overview.model.entity.*;
+import net.employee.overview.service.*;
 import net.employee.overview.web.form.BadgeForm;
 import net.employee.overview.web.form.BadgeTypeForm;
 import net.employee.overview.web.form.UserBadgeForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,14 +16,20 @@ import java.util.List;
 public class BadgeController {
 
     private final BadgeService badgeService;
-    private final UserService  userService;
-    private final TagService   tagService;
+    private final UserService userService;
+    private final TagService tagService;
+    private final UserBadgeService userBadgeService;
+    private final BadgeTagService badgeTagService;
 
     @Autowired
-    public BadgeController(final BadgeService p_badgeService, final UserService p_userService, final TagService p_tagService) {
-        badgeService = p_badgeService;
-        userService = p_userService;
-        tagService = p_tagService;
+    public BadgeController(final BadgeService badgeService, final UserService userService,
+        final TagService tagService, UserBadgeService userBadgeService,
+        BadgeTagService badgeTagService) {
+        this.badgeService = badgeService;
+        this.userService = userService;
+        this.tagService = tagService;
+        this.userBadgeService = userBadgeService;
+        this.badgeTagService = badgeTagService;
     }
 
     @RequestMapping("/search/badgetype/all")
@@ -72,24 +69,29 @@ public class BadgeController {
 
         badge.setCreator((User) userService.getOne(User.class, badgeForm.getUserId()));
         badge.setBadgeType(badgeService.fetchBadgeType(badgeForm.getBadgeTypeId()));
-//        badge.getTags().add((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
 
-        return badgeService.save(Badge.class, badge) != null;
+        final BadgeTag badgeTag = new BadgeTag();
+        badgeTag.setBadge(badge);
+        badgeTag.setTag((Tag) tagService.getOne(Tag.class, badgeForm.getTagId()));
+
+        return badgeTagService.save(BadgeTag.class, badgeTag) != null;
     }
 
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/save/user/badges", method = RequestMethod.POST)
     public @ResponseBody boolean saveBadgesForUser(@RequestBody final UserBadgeForm userBadgeForm) {
-        final User user = userService.fetchUserById(userBadgeForm.getPersonId());
 
-        final List<Badge> badges = badgeService.fetchBadgesByIds(userBadgeForm.getBadgesId());
+        final User user = (User) userService.getOne(User.class, userBadgeForm.getPersonId());
 
-//        for (final Badge badge : badges) {
-//            if(!user.getBadges().contains(badge)) {
-//                user.getBadges().add(badge);
-//            }
-//        }
+        for (final Long badgeId : userBadgeForm.getBadgesId()) {
+            final UserBadge userBadge = new UserBadge();
+            userBadge.setBadge((Badge) badgeService.getOne(Badge.class, badgeId));
+            userBadge.setUser(user);
 
-        return userService.save(User.class, user) != null;
+            if(!user.getBadges().contains(userBadge)) {
+                userBadgeService.save(UserBadge.class, userBadge);
+            }
+        }
+        return true;
     }
 }

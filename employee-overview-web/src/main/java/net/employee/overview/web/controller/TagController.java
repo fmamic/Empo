@@ -3,9 +3,11 @@ package net.employee.overview.web.controller;
 import net.employee.overview.model.entity.Tag;
 import net.employee.overview.model.entity.TagType;
 import net.employee.overview.model.entity.User;
+import net.employee.overview.model.entity.UserTag;
 import net.employee.overview.service.AuditService;
 import net.employee.overview.service.TagService;
 import net.employee.overview.service.UserService;
+import net.employee.overview.service.UserTagService;
 import net.employee.overview.web.form.RevisionForm;
 import net.employee.overview.web.form.TagForm;
 import net.employee.overview.web.form.UserTagForm;
@@ -20,7 +22,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -29,12 +30,15 @@ public class TagController {
     private final TagService   tagService;
     private final UserService  userService;
     private final AuditService auditService;
+    private final UserTagService userTagService;
 
     @Autowired
-    public TagController(final TagService p_tagService, final UserService p_userService, final AuditService p_auditService) {
-        tagService = p_tagService;
-        userService = p_userService;
-        auditService = p_auditService;
+    public TagController(final TagService tagService, final UserService userService,
+        final AuditService auditService, final UserTagService userTagService) {
+        this.tagService = tagService;
+        this.userService = userService;
+        this.auditService = auditService;
+        this.userTagService = userTagService;
     }
 
     @RequestMapping("/search/tagtype/all")
@@ -91,16 +95,17 @@ public class TagController {
     @SuppressWarnings("unchecked")
     @RequestMapping(value = "/save/user/tags", method = RequestMethod.POST)
     public @ResponseBody boolean saveTagForUser(@RequestBody final UserTagForm userTagForm) {
-        final User user = userService.fetchUserById(userTagForm.getPersonId());
+        final User user = (User) userService.getOne(User.class, userTagForm.getPersonId());
 
-        final List<Tag> tags = tagService.fetchTagsByIds(userTagForm.getTagsId());
+        for (final Long tagId : userTagForm.getTagsId()) {
+            final UserTag userTag = new UserTag();
+            userTag.setTag((Tag) tagService.getOne(Tag.class, tagId));
+            userTag.setUser(user);
 
-//        for (final Tag tag : tags) {
-//            if (!user.getTags().contains(tag)) {
-//                user.getTags().add(tag);
-//            }
-//        }
-
-        return userService.save(User.class, user) != null;
+            if(!user.getTags().contains(userTag)) {
+                userTagService.save(UserTag.class, userTag);
+            }
+        }
+        return true;
     }
 }

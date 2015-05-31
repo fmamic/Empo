@@ -1,6 +1,8 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.envers.AuditMappedBy;
 import org.hibernate.envers.Audited;
 import org.hibernate.envers.NotAudited;
@@ -108,23 +110,39 @@ public class Badge extends Persistable {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o)
+    public boolean equals(final Object obj) {
+        if (obj == this) {
             return true;
-        if (o == null || getClass() != o.getClass())
+        }
+        if (!(obj instanceof Badge)) {
             return false;
+        }
 
-        Badge m_badge = (Badge) o;
+        final EqualsBuilder builder = new EqualsBuilder();
+        final Badge casted = (Badge) obj;
 
-        if (id != null ? !id.equals(m_badge.id) : m_badge.id != null)
-            return false;
+        if(getId() != null) {
+            final Long otherId = casted.getId();
+            if(otherId != null) {
+                builder.append(getId(), casted.getId());
+                return builder.isEquals();
+            }
+        }
 
-        return true;
+        builder.append(getName(), casted.getName());
+        builder.append(getDate(), casted.getDate());
+
+        return builder.isEquals();
     }
 
     @Override
     public int hashCode() {
-        return id != null ? id.hashCode() : 0;
+        final HashCodeBuilder builder = new HashCodeBuilder();
+
+        builder.append(getName());
+        builder.append(getDate());
+
+        return builder.toHashCode();
     }
 
     public byte[] getImage() {

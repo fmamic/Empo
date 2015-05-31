@@ -1,6 +1,8 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.*;
@@ -91,26 +93,6 @@ public class Tag extends Persistable {
         displayName = p_displayName;
     }
 
-    @Override
-    public boolean equals(final Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        Tag m_tag = (Tag) o;
-
-        if (id != null ? !id.equals(m_tag.id) : m_tag.id != null)
-            return false;
-
-        return true;
-    }
-
-    @Override
-    public int hashCode() {
-        return id != null ? id.hashCode() : 0;
-    }
-
     public List<UserTag> getUsers() {
         return users;
     }
@@ -133,5 +115,39 @@ public class Tag extends Persistable {
 
     public void setProjects(final List<ProjectTag> p_projects) {
         projects = p_projects;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof Tag)) {
+            return false;
+        }
+
+        final EqualsBuilder builder = new EqualsBuilder();
+        final Tag casted = (Tag) obj;
+
+        if(getId() != null) {
+            final Long otherId = casted.getId();
+            if(otherId != null) {
+                builder.append(getId(), casted.getId());
+                return builder.isEquals();
+            }
+        }
+
+        builder.append(getName(), casted.getName());
+
+        return builder.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        final HashCodeBuilder builder = new HashCodeBuilder();
+
+        builder.append(getName());
+
+        return builder.toHashCode();
     }
 }

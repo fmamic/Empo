@@ -1,9 +1,7 @@
 package net.employee.overview.web.controller;
 
 import net.employee.overview.dao.form.UserFilterForm;
-import net.employee.overview.model.entity.Badge;
-import net.employee.overview.model.entity.Tag;
-import net.employee.overview.model.entity.User;
+import net.employee.overview.model.entity.*;
 import net.employee.overview.service.AuditService;
 import net.employee.overview.service.UserService;
 import net.employee.overview.web.form.BadgeForm;
@@ -98,24 +96,24 @@ public class UserController {
         return userForm;
     }
 
+    @SuppressWarnings("RedundantStringToString")
     private void setTagsBadges(final User user, final UserForm p_userForm) {
         BeanUtils.copyProperties(user, p_userForm);
 
-        //noinspection RedundantStringToString
         p_userForm.setDateOfBirthStr((new SimpleDateFormat("dd.MM.yyyy").format(user.getDateOfBirth())).toString());
 
-//        for (final Tag tag : user.getTags()) {
-//            final TagForm tagForm = new TagForm();
-//            BeanUtils.copyProperties(tag, tagForm);
-//
-//            p_userForm.getTagForm().add(tagForm);
-//        }
-//
-//        for (final Badge badge : user.getBadges()) {
-//            BadgeForm form = new BadgeForm();
-//            BeanUtils.copyProperties(badge, form);
-//            p_userForm.getBadgeForm().add(form);
-//        }
+        for (final UserTag tag : user.getTags()) {
+            final TagForm tagForm = new TagForm();
+            BeanUtils.copyProperties(tag.getTag(), tagForm);
+
+            p_userForm.getTagForm().add(tagForm);
+        }
+
+        for (final UserBadge badge : user.getBadges()) {
+            BadgeForm form = new BadgeForm();
+            BeanUtils.copyProperties(badge.getBadge(), form);
+            p_userForm.getBadgeForm().add(form);
+        }
     }
 
     private UserForm setUserForm(final User user) {

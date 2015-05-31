@@ -1,6 +1,8 @@
 package net.employee.overview.model.entity;
 
 import net.employee.overview.model.Persistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.hibernate.envers.Audited;
 
 import javax.persistence.AttributeOverride;
@@ -57,5 +59,41 @@ public class UserProject extends Persistable {
 
     public void setId(final Long p_id) {
         id = p_id;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        if (!(obj instanceof UserProject)) {
+            return false;
+        }
+
+        final EqualsBuilder builder = new EqualsBuilder();
+        final UserProject casted = (UserProject) obj;
+
+        if (getId() != null) {
+            final Long otherId = casted.getId();
+            if (otherId != null) {
+                builder.append(getId(), casted.getId());
+                return builder.isEquals();
+            }
+        }
+
+        builder.append(getUser(), casted.getUser());
+        builder.append(getProject(), casted.getProject());
+
+        return builder.isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        final HashCodeBuilder builder = new HashCodeBuilder();
+
+        builder.append(getUser());
+        builder.append(getProject());
+
+        return builder.toHashCode();
     }
 }
