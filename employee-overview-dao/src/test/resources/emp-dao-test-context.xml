@@ -10,6 +10,7 @@
            http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
     <context:annotation-config/>
+    <context:component-scan base-package="net.employee.overview.dao"/>
 
     <!--<jdbc:embedded-database id="dataSource" type="H2"/>-->
 
@@ -34,11 +35,7 @@
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan" value="net.employee.overview.model"/>
-        <property name="jpaProperties">
-            <props>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
-            </props>
-        </property>
+
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
                 <property name="generateDdl" value="true" />

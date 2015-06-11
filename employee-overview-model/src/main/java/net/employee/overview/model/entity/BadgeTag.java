@@ -1,66 +1,78 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
+import javax.persistence.AttributeOverride;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import net.employee.overview.model.AbstractPersistable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
+import org.hibernate.envers.Audited;
 
 @Entity
 @Audited
 @Table(name = "EMP_BDG_TAG")
 @SequenceGenerator(name = "BDG_TAG_SEQ", sequenceName = "BDG_TAG_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "PRO_VERSION"))
-public class BadgeTag extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "PRO_VERSION"))
+public class BadgeTag extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BDG_TAG_SEQ")
     @Column(name = "BDG_TAG_ID")
-    private Long id;
+    private Long m_id;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "BDG_ID", foreignKey = @ForeignKey(name = "BDG_TAG_FK"))
-    private Badge badge;
+    private Badge m_badge;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "TAG_ID", foreignKey = @ForeignKey(name = "TAG_BDG_FK"))
-    private Tag tag;
+    private Tag m_tag;
 
     public Badge getBadge() {
-        return badge;
+        return m_badge;
     }
 
     public void setBadge(final Badge p_badge) {
-        badge = p_badge;
+        m_badge = p_badge;
     }
 
     public Tag getTag() {
-        return tag;
+        return m_tag;
     }
 
     public void setTag(final Tag p_tag) {
-        tag = p_tag;
+        m_tag = p_tag;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
     public void setId(final Long p_id) {
-        id = p_id;
+        m_id = p_id;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
+    public final boolean equals(final Object p_obj) {
+        if (p_obj == this) {
             return true;
         }
-        if (!(obj instanceof BadgeTag)) {
+        if (!(p_obj instanceof BadgeTag)) {
             return false;
         }
 
-        final BadgeTag casted = (BadgeTag) obj;
+        final BadgeTag casted = (BadgeTag) p_obj;
         final EqualsBuilder builder = new EqualsBuilder();
 
         builder.append(getTag(), casted.getTag());
@@ -70,7 +82,7 @@ public class BadgeTag extends Persistable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final HashCodeBuilder builder = new HashCodeBuilder();
 
         builder.append(getBadge());

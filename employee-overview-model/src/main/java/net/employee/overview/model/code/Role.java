@@ -1,8 +1,14 @@
 package net.employee.overview.model.code;
 
-import net.employee.overview.model.AbstractCode;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import net.employee.overview.model.AbstractCode;
 
 @Entity
 @Table(name = "EMP_ROLE")
@@ -12,24 +18,24 @@ public class Role extends AbstractCode {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ROLE_SEQ")
     @Column(name = "ROLE_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "ROLE_NAME")
-    private String name;
+    private String m_name;
 
-    public String getName() {
-        return name;
+    public final String getName() {
+        return m_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public final void setName(final String p_name) {
+        m_name = p_name;
     }
 
-    public Long getId() {
-        return id;
+    public final Long getId() {
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public final void setId(final Long p_id) {
+        m_id = p_id;
     }
 }

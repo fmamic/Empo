@@ -1,38 +1,43 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
-import org.hibernate.envers.Audited;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
-import javax.persistence.*;
+import net.employee.overview.model.AbstractPersistable;
 
 @Entity
-@Audited
 @Table(name = "EMP_TAG_TYPE")
 @SequenceGenerator(name = "TGT_SEQ", sequenceName = "TGT_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "TGT_VERSION"))
-public class TagType extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "TGT_VERSION"))
+public class TagType extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TGT_SEQ")
     @Column(name = "TGT_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "TGT_NAME")
-    private String name;
+    private String m_name;
 
     public String getName() {
-        return name;
+        return m_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String p_name) {
+        m_name = p_name;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long p_id) {
+        m_id = p_id;
     }
 }

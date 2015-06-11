@@ -5,17 +5,17 @@ import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
 @MappedSuperclass
-public abstract class Persistable implements Identifier {
+public abstract class AbstractPersistable implements Identifier {
 
     @Version
     @Column(name = "VERSION")
-    private Long version;
+    private Long m_version;
 
     public Long getVersion() {
-        return version;
+        return m_version;
     }
 
-    public void setVersion(final Long version) {
-        this.version = version;
+    public void setVersion(final Long p_version) {
+        m_version = p_version;
     }
 }

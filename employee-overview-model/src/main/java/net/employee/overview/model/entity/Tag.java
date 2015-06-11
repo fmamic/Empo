@@ -1,137 +1,155 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
+import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import net.employee.overview.model.AbstractPersistable;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.envers.Audited;
 
-import javax.persistence.*;
-import java.util.List;
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Audited
 @Table(name = "EMP_TAG")
 @SequenceGenerator(name = "TAG_SEQ", sequenceName = "TAG_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "TAG_VERSION"))
-public class Tag extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "TAG_VERSION"))
+public class Tag extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAG_SEQ")
     @Column(name = "TAG_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "TAG_NAME", unique = true)
-    private String name;
+    private String m_name;
 
+    @NotAudited
     @ManyToOne
     @JoinColumn(name = "TAG_TGT_ID", foreignKey = @ForeignKey(name = "TAG_TGT_FK"))
-    private TagType tagType;
+    private TagType m_tagType;
 
     @Column(name = "TAG_DISPLAY_NAME")
-    private String displayName;
+    private String m_displayName;
 
     @Column(name = "TAG_DESCRIPTION", columnDefinition = "text")
-    private String description;
+    private String m_description;
 
     @Column(name = "TAG_LINK")
-    private String link;
+    private String m_link;
 
-    @OneToMany(mappedBy = "tag")
-    private List<UserTag> users;
+    @NotAudited
+    @OneToMany(mappedBy = "m_tag")
+    private List<UserTag> m_users;
 
-    @OneToMany(mappedBy = "tag")
-    private List<BadgeTag> badges;
+    @NotAudited
+    @OneToMany(mappedBy = "m_tag")
+    private List<BadgeTag> m_badges;
 
-    @OneToMany(mappedBy = "tag")
-    private List<ProjectTag> projects;
+    @NotAudited
+    @OneToMany(mappedBy = "m_tag")
+    private List<ProjectTag> m_projects;
 
     public String getName() {
-        return name;
+        return m_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String p_name) {
+        m_name = p_name;
     }
 
     public TagType getTagType() {
-        return tagType;
+        return m_tagType;
     }
 
-    public void setTagType(TagType tagType) {
-        this.tagType = tagType;
+    public void setTagType(final TagType p_tagType) {
+        m_tagType = p_tagType;
     }
 
     public String getDescription() {
-        return description;
+        return m_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String p_description) {
+        m_description = p_description;
     }
 
     public String getLink() {
-        return link;
+        return m_link;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setLink(final String p_link) {
+        m_link = p_link;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long p_id) {
+        m_id = p_id;
     }
 
     public String getDisplayName() {
-        return displayName;
+        return m_displayName;
     }
 
     public void setDisplayName(final String p_displayName) {
-        displayName = p_displayName;
+        m_displayName = p_displayName;
     }
 
     public List<UserTag> getUsers() {
-        return users;
+        return m_users;
     }
 
     public void setUsers(final List<UserTag> p_users) {
-        users = p_users;
+        m_users = p_users;
     }
 
     public List<BadgeTag> getBadges() {
-        return badges;
+        return m_badges;
     }
 
     public void setBadges(final List<BadgeTag> p_badges) {
-        badges = p_badges;
+        m_badges = p_badges;
     }
 
     public List<ProjectTag> getProjects() {
-        return projects;
+        return m_projects;
     }
 
     public void setProjects(final List<ProjectTag> p_projects) {
-        projects = p_projects;
+        m_projects = p_projects;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
+    public final boolean equals(final Object p_obj) {
+        if (p_obj == this) {
             return true;
         }
-        if (!(obj instanceof Tag)) {
+        if (!(p_obj instanceof Tag)) {
             return false;
         }
 
         final EqualsBuilder builder = new EqualsBuilder();
-        final Tag casted = (Tag) obj;
+        final Tag casted = (Tag) p_obj;
 
-        if(getId() != null) {
+        if (getId() != null) {
             final Long otherId = casted.getId();
-            if(otherId != null) {
+            if (otherId != null) {
                 builder.append(getId(), casted.getId());
                 return builder.isEquals();
             }
@@ -143,7 +161,7 @@ public class Tag extends Persistable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final HashCodeBuilder builder = new HashCodeBuilder();
 
         builder.append(getName());

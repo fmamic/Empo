@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface AuditRepository {
 
-   List<Object[]> entityRevisions(final Class<?> type);
+    List<Object[]> entityRevisions(Class<?> p_type);
 
 }

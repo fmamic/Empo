@@ -3,38 +3,42 @@
         News feed
     </h1>
 
-    <div>
-        <div class="col-md-9" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
-            <div ng-repeat="log in eventLog track by $index">
-                <blockquote>
-                    <div class="row">
-                        <div class="col-md-2">
-                            <img class="eventPic" ng-src="{{ person.picture }}"/>
+    <div class="row">
+        <div class="col-md-9">
+            <div class="col-md-9" infinite-scroll='loadMore()' infinite-scroll-distance='2'>
+                <div ng-repeat="log in eventLog track by $index">
+                    <blockquote>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <img class="eventPic" ng-src="{{ person.picture }}"/>
+                            </div>
+                            <div class="col-md-10">
+                                <p><strong>{{ log.name }}</strong><span class="dateTimeEvent">{{ log.date | date : 'dd.MM.yyyy HH:mm:ss' }}</span></p>
+                                <p>{{ log.description }}</p>
+                            </div>
                         </div>
-                        <div class="col-md-10">
-                            <p><strong>{{ log.name }}</strong><span class="dateTimeEvent">{{ log.date | date : 'dd.MM.yyyy HH:mm:ss' }}</span></p>
-                            <p>{{ log.description }}</p>
-                        </div>
-                    </div>
-                </blockquote>
+                    </blockquote>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div ng-controller="DoughnutCtrl">
+                <h4>Tags</h4>
                 <hr>
-            </div>
-        </div>
-        <div class="col-md-3" ng-controller="DoughnutCtrl">
-            <h4>Tags</h4>
-            <hr>
-            <div class="row">
-                <canvas id="doughnut" class="chart chart-doughnut" data="data"
-                        labels="labels"></canvas>
-            </div>
-        </div>
-        <div class="col-md-3" ng-controller="Bar2Ctrl">
-            <h4>People with most tags</h4>
-            <hr>
-            <div class="row">
-                <div class="col-lg-6 col-sm-12" id="bar-chart">
-                    <canvas id="bar" class="chart chart-bar" data="data"
+                <div class="row">
+                    <canvas id="doughnut" class="chart chart-doughnut" data="data"
                             labels="labels"></canvas>
+                </div>
+            </div>
+            <div ng-controller="Bar2Ctrl">
+                <h4>People with most tags</h4>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12" id="bar-chart">
+                        <canvas id="bar" class="chart chart-bar" data="data"
+                                labels="labels"></canvas>
+                    </div>
                 </div>
             </div>
         </div>

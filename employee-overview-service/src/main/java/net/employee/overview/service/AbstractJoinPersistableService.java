@@ -1,57 +1,71 @@
 package net.employee.overview.service;
 
 import com.google.common.collect.ImmutableMap;
-import net.employee.overview.dao.*;
-import net.employee.overview.model.Persistable;
-import net.employee.overview.model.entity.*;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.List;
 
-public abstract class AbstractJoinPersistableService<T extends Persistable> implements PersistableService {
+import net.employee.overview.dao.BadgeTagRepository;
+import net.employee.overview.dao.ProjectTagRepository;
+import net.employee.overview.dao.UserBadgeRepository;
+import net.employee.overview.dao.UserProjectRepository;
+import net.employee.overview.dao.UserTagRepository;
+import net.employee.overview.model.AbstractPersistable;
+import net.employee.overview.model.entity.BadgeTag;
+import net.employee.overview.model.entity.ProjectTag;
+import net.employee.overview.model.entity.UserBadge;
+import net.employee.overview.model.entity.UserProject;
+import net.employee.overview.model.entity.UserTag;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-    private final UserBadgeRepository userBadgeRepository;
-    private final UserTagRepository userTagRepository;
-    private final UserProjectRepository userProjectRepository;
-    private final BadgeTagRepository badgeTagRepository;
-    private final ProjectTagRepository projectTagRepository;
+public abstract class AbstractJoinPersistableService<T extends AbstractPersistable> implements PersistableService {
 
-    private ImmutableMap<Class<? extends Persistable>, JpaRepository<? extends Persistable, Long>>
-        repositories;
+    private final UserBadgeRepository   m_userBadgeRepository;
+    private final UserTagRepository     m_userTagRepository;
+    private final UserProjectRepository m_userProjectRepository;
+    private final BadgeTagRepository    m_badgeTagRepository;
+    private final ProjectTagRepository  m_projectTagRepository;
 
-    protected AbstractJoinPersistableService(UserBadgeRepository userBadgeRepository,
-        UserTagRepository userTagRepository, UserProjectRepository userProjectRepository,
-        BadgeTagRepository badgeTagRepository, ProjectTagRepository projectTagRepository) {
-        this.userBadgeRepository = userBadgeRepository;
-        this.userTagRepository = userTagRepository;
-        this.userProjectRepository = userProjectRepository;
-        this.badgeTagRepository = badgeTagRepository;
-        this.projectTagRepository = projectTagRepository;
+    private ImmutableMap<Class<? extends AbstractPersistable>, JpaRepository<? extends AbstractPersistable, Long>>
+            m_repositories;
 
-        repositories =
-            ImmutableMap.of(UserBadge.class, userBadgeRepository, UserTag.class, userTagRepository,
-                UserProject.class, userProjectRepository, BadgeTag.class, badgeTagRepository, ProjectTag.class, projectTagRepository);
+    protected AbstractJoinPersistableService(final UserBadgeRepository p_userBadgeRepository,
+            final UserTagRepository p_userTagRepository, final UserProjectRepository p_userProjectRepository,
+            final BadgeTagRepository p_badgeTagRepository, final ProjectTagRepository p_projectTagRepository) {
+        m_userBadgeRepository = p_userBadgeRepository;
+        m_userTagRepository = p_userTagRepository;
+        m_userProjectRepository = p_userProjectRepository;
+        m_badgeTagRepository = p_badgeTagRepository;
+        m_projectTagRepository = p_projectTagRepository;
+
+        m_repositories =
+                ImmutableMap.of(UserBadge.class, m_userBadgeRepository, UserTag.class, m_userTagRepository,
+                        UserProject.class, m_userProjectRepository, BadgeTag.class, m_badgeTagRepository, ProjectTag.class, m_projectTagRepository);
     }
 
-    protected JpaRepository getRepository(final Class<T> repository) {
-        return repositories.get(repository);
+    protected final JpaRepository getRepository(final Class<T> p_repository) {
+        return m_repositories.get(p_repository);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public List findAll(final Class type) {
-        return getRepository(type).findAll();
+    public final List findAll(final Class p_type) {
+        return getRepository(p_type).findAll();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
-    public T getOne(final Class type, final Long id) {
-        return (T) getRepository(type).findOne(id);
+    public final T getOne(final Class p_type, final Long p_id) {
+        return (T) getRepository(p_type).findOne(p_id);
     }
 
-    @Override public Persistable save(final Class type, final Persistable object) {
-        return (T) getRepository(type).save(object);
+    @SuppressWarnings("unchecked")
+    @Override
+    public final AbstractPersistable save(final Class p_type, final AbstractPersistable p_object) {
+        return (T) getRepository(p_type).save(p_object);
     }
 
-    @Override public void delete(final Class type, final Persistable object) {
-        getRepository(type).delete(object);
+    @SuppressWarnings("unchecked")
+    @Override
+    public final void delete(final Class p_type, final AbstractPersistable p_object) {
+        getRepository(p_type).delete(p_object);
     }
 }

@@ -1,30 +1,43 @@
 package net.employee.overview.web.controller;
 
-import net.employee.overview.model.entity.*;
-import net.employee.overview.service.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.employee.overview.model.entity.Badge;
+import net.employee.overview.model.entity.BadgeTag;
+import net.employee.overview.model.entity.BadgeType;
+import net.employee.overview.model.entity.Tag;
+import net.employee.overview.model.entity.User;
+import net.employee.overview.model.entity.UserBadge;
+import net.employee.overview.service.BadgeService;
+import net.employee.overview.service.BadgeTagService;
+import net.employee.overview.service.TagService;
+import net.employee.overview.service.UserBadgeService;
+import net.employee.overview.service.UserService;
 import net.employee.overview.web.form.BadgeForm;
 import net.employee.overview.web.form.BadgeTypeForm;
 import net.employee.overview.web.form.UserBadgeForm;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class BadgeController {
 
-    private final BadgeService badgeService;
-    private final UserService userService;
-    private final TagService tagService;
+    private final BadgeService     badgeService;
+    private final UserService      userService;
+    private final TagService       tagService;
     private final UserBadgeService userBadgeService;
-    private final BadgeTagService badgeTagService;
+    private final BadgeTagService  badgeTagService;
 
     @Autowired
     public BadgeController(final BadgeService badgeService, final UserService userService,
-        final TagService tagService, UserBadgeService userBadgeService,
-        BadgeTagService badgeTagService) {
+            final TagService tagService, UserBadgeService userBadgeService,
+            BadgeTagService badgeTagService) {
         this.badgeService = badgeService;
         this.userService = userService;
         this.tagService = tagService;

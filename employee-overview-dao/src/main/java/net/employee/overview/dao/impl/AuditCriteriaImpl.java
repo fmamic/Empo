@@ -1,26 +1,28 @@
 package net.employee.overview.dao.impl;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import net.employee.overview.dao.AuditCriteria;
 import net.employee.overview.model.entity.Revinfo;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
 @Component
 public class AuditCriteriaImpl implements AuditCriteria {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager m_entityManager;
 
-    public List<Object> fetchEventsByDate() {
-        final Session session = entityManager.unwrap(Session.class);
+    @SuppressWarnings("unchecked")
+    public final List<Revinfo> fetchEventsByDate() {
+        final Session session = m_entityManager.unwrap(Session.class);
         final Criteria criteria = session.createCriteria(Revinfo.class);
 
-        return null;
+        return criteria.list();
     }
 
 }

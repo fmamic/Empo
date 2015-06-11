@@ -1,5 +1,7 @@
 package net.employee.overview.service.impl;
 
+import java.util.List;
+
 import net.employee.overview.dao.BadgeRepository;
 import net.employee.overview.dao.ProjectRepository;
 import net.employee.overview.dao.TagRepository;
@@ -12,33 +14,35 @@ import net.employee.overview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class UserServiceImpl extends AbstractPersistableService implements UserService {
 
-    private final UserCriteria userCriteria;
+    private final UserCriteria m_userCriteria;
 
     @Autowired
-    public UserServiceImpl(final BadgeRepository badgeRepository,
-            final ProjectRepository projectRepository,
-            final TagRepository tagRepository,
-            final UserRepository userRepository, final UserCriteria userCriteria) {
-        super(badgeRepository, projectRepository, tagRepository, userRepository);
-        this.userCriteria = userCriteria;
+    public UserServiceImpl(final BadgeRepository p_badgeRepository,
+            final ProjectRepository p_projectRepository,
+            final TagRepository p_tagRepository,
+            final UserRepository p_userRepository, final UserCriteria p_userCriteria) {
+
+        super(p_badgeRepository, p_projectRepository, p_tagRepository, p_userRepository);
+
+        m_userCriteria = p_userCriteria;
     }
 
     @SuppressWarnings("unchecked")
     public final List<User> fetchAllUsers() {
-        return ((UserRepository)getRepository(User.class)).findAll();
+        return ((UserRepository) getRepository(User.class)).findAll();
     }
 
-    public final User fetchUserById(final Long id) {
-        return (User) getRepository(User.class).findOne(id);
+    @SuppressWarnings("unchecked")
+    public final User fetchUserById(final Long p_id) {
+        return (User) getRepository(User.class).findOne(p_id);
     }
 
-    public final List<User> fetchUsersWithFilter(final UserFilterForm userFilterForm) {
-        return userCriteria.fetchUsersWithFilter(userFilterForm);
+    @SuppressWarnings("unchecked")
+    public final List<User> fetchUsersWithFilter(final UserFilterForm p_userFilterForm) {
+        return m_userCriteria.fetchUsersWithFilter(p_userFilterForm);
     }
 
 }

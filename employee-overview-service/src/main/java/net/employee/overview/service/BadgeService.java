@@ -1,17 +1,17 @@
 package net.employee.overview.service;
 
+import java.util.List;
+
 import net.employee.overview.model.entity.Badge;
 import net.employee.overview.model.entity.BadgeType;
-
-import java.util.List;
 
 public interface BadgeService extends PersistableService {
 
     List<BadgeType> fetchAllBadgeType();
 
-    BadgeType fetchBadgeType(Long id);
+    BadgeType fetchBadgeType(Long p_id);
 
     List<Badge> fetchAllBadges();
 
-    List<Badge> fetchBadgesByIds(List<Long> ids);
+    List<Badge> fetchBadgesByIds(List<Long> p_ids);
 }

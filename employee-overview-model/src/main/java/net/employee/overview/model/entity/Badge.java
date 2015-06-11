@@ -1,129 +1,169 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.envers.AuditMappedBy;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-import org.hibernate.envers.RelationTargetAuditMode;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import net.employee.overview.model.AbstractPersistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Audited
 @Table(name = "EMP_BADGE")
 @SequenceGenerator(name = "BDG_SEQ", sequenceName = "BDG_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "BDG_VERSION"))
-public class Badge extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "BDG_VERSION"))
+public class Badge extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BDG_SEQ")
     @Column(name = "BDG_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "BDG_NAME")
-    private String name;
+    private String m_name;
 
     @ManyToOne
+    @NotAudited
     @JoinColumn(name = "BDG_BDT_ID", foreignKey = @ForeignKey(name = "BDG_BDT_FK"))
-    private BadgeType badgeType;
+    private BadgeType m_badgeType;
 
     @Column(name = "BDG_LEVEL")
-    private Integer level;
+    private Integer m_level;
 
     @Column(name = "BDG_DESCRIPTION", columnDefinition = "text")
-    private String description;
+    private String m_description;
 
     @ManyToOne
+    @NotAudited
     @JoinColumn(name = "BDG_USR_ID", foreignKey = @ForeignKey(name = "BDG_USR_FK"))
-    private User creator;
+    private User m_creator;
 
     @Column(name = "BDG_DATE")
-    private Date date;
+    private Date m_date;
 
-    @OneToMany(mappedBy = "badge")
-    private List<BadgeTag> tags;
+    @NotAudited
+    @OneToMany(mappedBy = "m_badge")
+    private List<BadgeTag> m_tags;
 
-    @OneToMany(mappedBy = "badge")
-    private List<UserBadge> badges;
+    @NotAudited
+    @OneToMany(mappedBy = "m_badge")
+    private List<UserBadge> m_badges;
 
     @Column(name = "BDG_IMAGE")
-    private byte[] image;
+    private byte[] m_image;
 
     public BadgeType getBadgeType() {
-        return badgeType;
+        return m_badgeType;
     }
 
-    public void setBadgeType(BadgeType badgeType) {
-        this.badgeType = badgeType;
+    public void setBadgeType(final BadgeType p_badgeType) {
+        m_badgeType = p_badgeType;
     }
 
     public Integer getLevel() {
-        return level;
+        return m_level;
     }
 
-    public void setLevel(Integer level) {
-        this.level = level;
+    public void setLevel(final Integer p_level) {
+        m_level = p_level;
     }
 
     public String getDescription() {
-        return description;
+        return m_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String p_description) {
+        m_description = p_description;
     }
 
     public Date getDate() {
-        return date;
+        return m_date;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(final Date p_date) {
+        m_date = p_date;
     }
 
     public String getName() {
-        return name;
+        return m_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String p_name) {
+        m_name = p_name;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long p_id) {
+        m_id = p_id;
     }
 
     public User getCreator() {
-        return creator;
+        return m_creator;
     }
 
     public void setCreator(final User p_creator) {
-        creator = p_creator;
+        m_creator = p_creator;
     }
 
+    public byte[] getImage() {
+        return m_image;
+    }
+
+    public void setImage(final byte[] p_image) {
+        m_image = p_image;
+    }
+
+    public List<UserBadge> getBadges() {
+        return m_badges;
+    }
+
+    public void setBadges(final List<UserBadge> p_badges) {
+        m_badges = p_badges;
+    }
+
+    public List<BadgeTag> getTags() {
+        return m_tags;
+    }
+
+    public void setTags(final List<BadgeTag> p_tags) {
+        m_tags = p_tags;
+    }
+
+
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
+    public final boolean equals(final Object p_obj) {
+        if (p_obj == this) {
             return true;
         }
-        if (!(obj instanceof Badge)) {
+        if (!(p_obj instanceof Badge)) {
             return false;
         }
 
         final EqualsBuilder builder = new EqualsBuilder();
-        final Badge casted = (Badge) obj;
+        final Badge casted = (Badge) p_obj;
 
-        if(getId() != null) {
+        if (getId() != null) {
             final Long otherId = casted.getId();
-            if(otherId != null) {
+            if (otherId != null) {
                 builder.append(getId(), casted.getId());
                 return builder.isEquals();
             }
@@ -136,36 +176,12 @@ public class Badge extends Persistable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final HashCodeBuilder builder = new HashCodeBuilder();
 
         builder.append(getName());
         builder.append(getDate());
 
         return builder.toHashCode();
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(final byte[] p_image) {
-        image = p_image;
-    }
-
-    public List<UserBadge> getBadges() {
-        return badges;
-    }
-
-    public void setBadges(final List<UserBadge> p_badges) {
-        badges = p_badges;
-    }
-
-    public List<BadgeTag> getTags() {
-        return tags;
-    }
-
-    public void setTags(final List<BadgeTag> p_tags) {
-        tags = p_tags;
     }
 }

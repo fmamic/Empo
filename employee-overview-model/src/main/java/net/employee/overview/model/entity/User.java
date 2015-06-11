@@ -1,228 +1,236 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
-import net.employee.overview.model.code.Role;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.envers.AuditJoinTable;
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
-import org.hibernate.envers.RelationTargetAuditMode;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import net.employee.overview.model.AbstractPersistable;
+import net.employee.overview.model.code.Role;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import org.hibernate.envers.RelationTargetAuditMode;
+
 @Entity
-@Audited
 @Table(name = "EMP_USER")
 @SequenceGenerator(name = "USR_SEQ", sequenceName = "USR_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "USR_VERSION"))
-public class User extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "USR_VERSION"))
+public class User extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_SEQ")
     @Column(name = "USR_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "USR_USERNAME")
-    private String username;
+    private String m_username;
 
     @Column(name = "USR_PICTURE")
-    private String picture;
+    private String m_picture;
 
     @Column(name = "USR_PASSWORD")
-    private String password;
+    private String m_password;
 
     @Column(name = "USR_NAME")
-    private String name;
+    private String m_name;
 
     @Column(name = "USR_POSITION")
-    private String position;
+    private String m_position;
 
     @Column(name = "USR_PHONE")
-    private String phone;
+    private String m_phone;
 
     @Column(name = "USR_CELL_PHONE")
-    private String cellPhone;
+    private String m_cellPhone;
 
     @Column(name = "USR_DESCRIPTION", columnDefinition = "text")
-    private String description;
+    private String m_description;
 
     @Column(name = "USR_EMAIL")
-    private String email;
+    private String m_email;
 
     @Column(name = "USR_WORK_PLACE")
-    private String workPlace;
+    private String m_workPlace;
 
     @Column(name = "USR_DATE_OF_BIRTH")
-    private Date dateOfBirth;
+    private Date m_dateOfBirth;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserBadge> badges;
+    @OneToMany(mappedBy = "m_user")
+    private List<UserBadge> m_badges;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserProject> projects;
+    @OneToMany(mappedBy = "m_user")
+    private List<UserProject> m_projects;
 
-    @OneToMany(mappedBy = "user")
-    private List<UserTag> tags;
+    @OneToMany(mappedBy = "m_user")
+    private List<UserTag> m_tags;
 
-    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name = "USR_ROLE_ID", foreignKey = @ForeignKey(name = "USR_ROLE_FK"))
-    private Role role;
+    private Role m_role;
 
     @ManyToOne
     @JoinColumn(name = "USR_MAN_ID", foreignKey = @ForeignKey(name = "USR_MAN_FK"))
-    private User manager;
+    private User m_manager;
 
     public String getPosition() {
-        return position;
+        return m_position;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setPosition(final String p_position) {
+        m_position = p_position;
     }
 
     public String getPhone() {
-        return phone;
+        return m_phone;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPhone(final String p_phone) {
+        m_phone = p_phone;
     }
 
     public String getUsername() {
-        return username;
+        return m_username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(final String p_username) {
+        m_username = p_username;
     }
 
     public String getPassword() {
-        return password;
+        return m_password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPassword(final String p_password) {
+        m_password = p_password;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long p_id) {
+        m_id = p_id;
     }
 
     public String getDescription() {
-        return description;
+        return m_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String p_description) {
+        m_description = p_description;
     }
 
     public Role getRole() {
-        return role;
+        return m_role;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(final Role p_role) {
+        m_role = p_role;
     }
 
     public User getManager() {
-        return manager;
+        return m_manager;
     }
 
     public void setManager(final User p_manager) {
-        manager = p_manager;
+        m_manager = p_manager;
     }
 
     public String getEmail() {
-        return email;
+        return m_email;
     }
 
     public void setEmail(final String p_email) {
-        email = p_email;
+        m_email = p_email;
     }
 
     public String getPicture() {
-        return picture;
+        return m_picture;
     }
 
     public void setPicture(final String p_picture) {
-        picture = p_picture;
+        m_picture = p_picture;
     }
 
     public String getWorkPlace() {
-        return workPlace;
+        return m_workPlace;
     }
 
     public void setWorkPlace(final String p_workPlace) {
-        workPlace = p_workPlace;
+        m_workPlace = p_workPlace;
     }
 
     public String getCellPhone() {
-        return cellPhone;
+        return m_cellPhone;
     }
 
     public void setCellPhone(final String p_cellPhone) {
-        cellPhone = p_cellPhone;
+        m_cellPhone = p_cellPhone;
     }
 
     public String getName() {
-        return name;
+        return m_name;
     }
 
     public void setName(final String p_name) {
-        name = p_name;
+        m_name = p_name;
     }
 
     public Date getDateOfBirth() {
-        return dateOfBirth;
+        return m_dateOfBirth;
     }
 
     public void setDateOfBirth(final Date p_dateOfBirth) {
-        dateOfBirth = p_dateOfBirth;
+        m_dateOfBirth = p_dateOfBirth;
     }
 
     public List<UserBadge> getBadges() {
-        return badges;
+        return m_badges;
     }
 
     public void setBadges(final List<UserBadge> p_badges) {
-        badges = p_badges;
+        m_badges = p_badges;
     }
 
     public List<UserProject> getProjects() {
-        return projects;
+        return m_projects;
     }
 
     public void setProjects(final List<UserProject> p_projects) {
-        projects = p_projects;
+        m_projects = p_projects;
     }
 
     public List<UserTag> getTags() {
-        return tags;
+        return m_tags;
     }
 
     public void setTags(final List<UserTag> p_tags) {
-        tags = p_tags;
+        m_tags = p_tags;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
+    public final boolean equals(final Object p_obj) {
+        if (p_obj == this) {
             return true;
         }
-        if (!(obj instanceof User)) {
+        if (!(p_obj instanceof User)) {
             return false;
         }
 
         final EqualsBuilder builder = new EqualsBuilder();
-        final User casted = (User) obj;
+        final User casted = (User) p_obj;
 
         if (getId() != null) {
             final Long otherId = casted.getId();
@@ -240,7 +248,7 @@ public class User extends Persistable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final HashCodeBuilder builder = new HashCodeBuilder();
 
         builder.append(getName());

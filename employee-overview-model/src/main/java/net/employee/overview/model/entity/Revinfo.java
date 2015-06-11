@@ -17,24 +17,24 @@ public class Revinfo {
     @Id
     @GeneratedValue
     @RevisionNumber
-    private Integer rev;
+    private Integer m_rev;
 
     @RevisionTimestamp
-    private Long revtstmp;
+    private Long m_revtstmp;
 
     public Integer getRev() {
-        return rev;
+        return m_rev;
     }
 
-    public void setRev(Integer rev) {
-        this.rev = rev;
+    public void setRev(final Integer p_rev) {
+        m_rev = p_rev;
     }
 
     public Long getRevtstmp() {
-        return revtstmp;
+        return m_revtstmp;
     }
 
-    public void setRevtstmp(Long revtstmp) {
-        this.revtstmp = revtstmp;
+    public void setRevtstmp(final Long p_revtstmp) {
+        m_revtstmp = p_revtstmp;
     }
 }

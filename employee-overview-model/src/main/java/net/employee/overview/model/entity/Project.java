@@ -1,115 +1,128 @@
 package net.employee.overview.model.entity;
 
-import net.employee.overview.model.Persistable;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.hibernate.envers.Audited;
-
-import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import net.employee.overview.model.AbstractPersistable;
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+
+import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Audited
 @Table(name = "EMP_PROJECT")
 @SequenceGenerator(name = "PRO_SEQ", sequenceName = "PRO_SEQ", allocationSize = 1)
-@AttributeOverride(name = "version", column = @Column(name = "PRO_VERSION"))
-public class Project extends Persistable {
+@AttributeOverride(name = "m_version", column = @Column(name = "PRO_VERSION"))
+public class Project extends AbstractPersistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PRO_SEQ")
     @Column(name = "PRO_ID")
-    private Long id;
+    private Long m_id;
 
     @Column(name = "PRO_DESCRIPTION", columnDefinition = "text")
-    private String description;
+    private String m_description;
 
     @Column(name = "PRO_NAME")
-    private String name;
+    private String m_name;
 
     @Column(name = "PRO_FROM_DATE")
-    private Date fromDate;
+    private Date m_fromDate;
 
     @Column(name = "PRO_TO_DATE")
-    private Date toDate;
+    private Date m_toDate;
 
-    @OneToMany(mappedBy = "project")
-    private List<ProjectTag> tags;
+    @NotAudited
+    @OneToMany(mappedBy = "m_project")
+    private List<ProjectTag> m_tags;
 
-    @OneToMany(mappedBy = "project")
-    private List<UserProject> users;
+    @NotAudited
+    @OneToMany(mappedBy = "m_project")
+    private List<UserProject> m_users;
 
     public String getDescription() {
-        return description;
+        return m_description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDescription(final String p_description) {
+        m_description = p_description;
     }
 
     public String getName() {
-        return name;
+        return m_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(final String p_name) {
+        m_name = p_name;
     }
 
     public Date getFromDate() {
-        return fromDate;
+        return m_fromDate;
     }
 
-    public void setFromDate(Date fromDate) {
-        this.fromDate = fromDate;
+    public void setFromDate(final Date p_fromDate) {
+        m_fromDate = p_fromDate;
     }
 
     public Date getToDate() {
-        return toDate;
+        return m_toDate;
     }
 
-    public void setToDate(Date toDate) {
-        this.toDate = toDate;
+    public void setToDate(final Date p_toDate) {
+        m_toDate = p_toDate;
     }
 
     public Long getId() {
-        return id;
+        return m_id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(final Long p_id) {
+        m_id = p_id;
     }
 
     public List<ProjectTag> getTags() {
-        return tags;
+        return m_tags;
     }
 
     public void setTags(final List<ProjectTag> p_tags) {
-        tags = p_tags;
+        m_tags = p_tags;
     }
 
     public List<UserProject> getUsers() {
-        return users;
+        return m_users;
     }
 
     public void setUsers(final List<UserProject> p_users) {
-        users = p_users;
+        m_users = p_users;
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (obj == this) {
+    public final boolean equals(final Object p_obj) {
+        if (p_obj == this) {
             return true;
         }
-        if (!(obj instanceof Project)) {
+        if (!(p_obj instanceof Project)) {
             return false;
         }
 
         final EqualsBuilder builder = new EqualsBuilder();
-        final Project casted = (Project) obj;
+        final Project casted = (Project) p_obj;
 
-        if(getId() != null) {
+        if (getId() != null) {
             final Long otherId = casted.getId();
-            if(otherId != null) {
+            if (otherId != null) {
                 builder.append(getId(), casted.getId());
                 return builder.isEquals();
             }
@@ -123,7 +136,7 @@ public class Project extends Persistable {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         final HashCodeBuilder builder = new HashCodeBuilder();
 
         builder.append(getName());

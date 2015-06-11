@@ -1,13 +1,12 @@
 package net.employee.overview.service;
 
-import net.employee.overview.model.Identifier;
-
 import java.util.List;
+import net.employee.overview.model.Identifier;
 
 public interface Service<T extends Identifier> {
 
-    List findAll(Class<T> type);
+    List findAll(Class<T> p_type);
 
-    T getOne(Class<T> type, Long id);
+    T getOne(Class<T> p_type, Long p_id);
 
 }

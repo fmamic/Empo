@@ -1,5 +1,10 @@
 package net.employee.overview.dao.impl;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 import net.employee.overview.dao.UserCriteria;
 import net.employee.overview.dao.form.UserFilterForm;
 import net.employee.overview.model.entity.User;
@@ -8,29 +13,25 @@ import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 import org.springframework.stereotype.Component;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import java.util.List;
-
 @Component
 public class UserCriteriaImpl implements UserCriteria {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    private EntityManager m_entityManager;
 
-    public final List<User> fetchUsersWithFilter(final UserFilterForm userFilterForm) {
-        final Session session = entityManager.unwrap(Session.class);
+    @SuppressWarnings("unchecked")
+    public final List<User> fetchUsersWithFilter(final UserFilterForm p_userFilterForm) {
+        final Session session = m_entityManager.unwrap(Session.class);
         final Criteria criteria = session.createCriteria(User.class);
 
-        if(userFilterForm.getName() != null) {
-            criteria.add(Restrictions.eq("name", userFilterForm.getName()));
+        if (p_userFilterForm.getName() != null) {
+            criteria.add(Restrictions.eq("name", p_userFilterForm.getName()));
         }
 
-        if(userFilterForm.getId() != null) {
-            criteria.add(Restrictions.eq("id", userFilterForm.getId()));
+        if (p_userFilterForm.getId() != null) {
+            criteria.add(Restrictions.eq("id", p_userFilterForm.getId()));
         }
 
-        //noinspection unchecked
         return criteria.list();
     }
 
