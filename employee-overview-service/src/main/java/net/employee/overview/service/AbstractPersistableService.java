@@ -1,13 +1,16 @@
 package net.employee.overview.service;
 
 import com.google.common.collect.ImmutableMap;
+
 import java.util.List;
 
+import net.employee.overview.dao.ActionInfoRepository;
 import net.employee.overview.dao.BadgeRepository;
 import net.employee.overview.dao.ProjectRepository;
 import net.employee.overview.dao.TagRepository;
 import net.employee.overview.dao.UserRepository;
 import net.employee.overview.model.AbstractPersistable;
+import net.employee.overview.model.entity.ActionInfo;
 import net.employee.overview.model.entity.Badge;
 import net.employee.overview.model.entity.Project;
 import net.employee.overview.model.entity.Tag;
@@ -17,10 +20,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public abstract class AbstractPersistableService<T extends AbstractPersistable> implements PersistableService {
 
-    private final BadgeRepository   m_badgeRepository;
-    private final ProjectRepository m_projectRepository;
-    private final TagRepository     m_tagRepository;
-    private final UserRepository    m_userRepository;
+    private final BadgeRepository      m_badgeRepository;
+    private final ProjectRepository    m_projectRepository;
+    private final TagRepository        m_tagRepository;
+    private final UserRepository       m_userRepository;
+    private final ActionInfoRepository m_actionInfoRepository;
 
     private ImmutableMap<Class<? extends AbstractPersistable>, JpaRepository<? extends AbstractPersistable, Long>>
             m_repositories;
@@ -28,16 +32,17 @@ public abstract class AbstractPersistableService<T extends AbstractPersistable> 
     @Autowired
     public AbstractPersistableService(final BadgeRepository p_badgeRepository,
             final ProjectRepository p_projectRepository, final TagRepository p_tagRepository,
-            final UserRepository p_userRepository) {
+            final UserRepository p_userRepository, final ActionInfoRepository p_actionInfoRepository) {
 
         m_badgeRepository = p_badgeRepository;
         m_projectRepository = p_projectRepository;
         m_tagRepository = p_tagRepository;
         m_userRepository = p_userRepository;
+        m_actionInfoRepository = p_actionInfoRepository;
 
         m_repositories =
                 ImmutableMap.of(Badge.class, m_badgeRepository, Project.class, m_projectRepository,
-                        Tag.class, m_tagRepository, User.class, m_userRepository);
+                        Tag.class, m_tagRepository, User.class, m_userRepository, ActionInfo.class, m_actionInfoRepository);
     }
 
     protected final JpaRepository getRepository(final Class<T> p_repository) {

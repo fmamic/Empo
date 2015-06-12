@@ -2,6 +2,7 @@ package net.employee.overview.service.impl;
 
 import java.util.List;
 
+import net.employee.overview.dao.ActionInfoRepository;
 import net.employee.overview.dao.BadgeRepository;
 import net.employee.overview.dao.ProjectRepository;
 import net.employee.overview.dao.TagRepository;
@@ -23,9 +24,9 @@ public class UserServiceImpl extends AbstractPersistableService implements UserS
     public UserServiceImpl(final BadgeRepository p_badgeRepository,
             final ProjectRepository p_projectRepository,
             final TagRepository p_tagRepository,
-            final UserRepository p_userRepository, final UserCriteria p_userCriteria) {
+            final UserRepository p_userRepository, final UserCriteria p_userCriteria, final ActionInfoRepository p_actionInfoRepository) {
 
-        super(p_badgeRepository, p_projectRepository, p_tagRepository, p_userRepository);
+        super(p_badgeRepository, p_projectRepository, p_tagRepository, p_userRepository, p_actionInfoRepository);
 
         m_userCriteria = p_userCriteria;
     }

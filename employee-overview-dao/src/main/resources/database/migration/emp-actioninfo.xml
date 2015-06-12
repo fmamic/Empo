@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    									http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+    <changeSet id="20" author="fmamic">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists schemaName="SYSTEM" tableName="EMP_ACTION_INFO" />
+            </not>
+        </preConditions>
+        <createTable tableName="EMP_ACTION_INFO">
+            <column name="ACT_ID" type="BIGINT">
+                <constraints primaryKey="true" nullable="false" primaryKeyName="ACT_PK" />
+            </column>
+            <column name="ACT_VERSION" type="BIGINT">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="ACT_ACTION" type="CLOB" />
+            <column name="ACT_USER_ID" type="BIGINT" />
+            <column name="ACT_ENTITY_ID" type="BIGINT" />
+            <column name="ACT_TYPE" type="VARCHAR(100)" />
+
+            <column name="ACT_USER_NAME" type="VARCHAR(100)" />
+            <column name="ACT_ENTITY_NAME" type="VARCHAR(100)" />
+
+            <column name="ACT_TIMESTAMP" type="DATE" />
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

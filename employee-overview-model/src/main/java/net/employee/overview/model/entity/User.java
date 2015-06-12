@@ -21,8 +21,6 @@ import net.employee.overview.model.code.Role;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
-import org.hibernate.envers.RelationTargetAuditMode;
-
 @Entity
 @Table(name = "EMP_USER")
 @SequenceGenerator(name = "USR_SEQ", sequenceName = "USR_SEQ", allocationSize = 1)

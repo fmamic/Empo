@@ -2,6 +2,7 @@ package net.employee.overview.service.impl;
 
 import java.util.List;
 
+import net.employee.overview.dao.ActionInfoRepository;
 import net.employee.overview.dao.BadgeRepository;
 import net.employee.overview.dao.BadgeTypeRepository;
 import net.employee.overview.dao.ProjectRepository;
@@ -10,6 +11,7 @@ import net.employee.overview.dao.UserRepository;
 import net.employee.overview.model.entity.Badge;
 import net.employee.overview.model.entity.BadgeType;
 import net.employee.overview.service.AbstractPersistableService;
+import net.employee.overview.service.ActionInfoService;
 import net.employee.overview.service.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +25,9 @@ public class BadgeServiceImpl extends AbstractPersistableService implements Badg
     public BadgeServiceImpl(final BadgeRepository p_badgeRepository,
             final ProjectRepository p_projectRepository,
             final TagRepository p_tagRepository,
-            final UserRepository p_userRepository, final BadgeTypeRepository p_badgeTypeRepository) {
-        super(p_badgeRepository, p_projectRepository, p_tagRepository, p_userRepository);
+            final UserRepository p_userRepository, final BadgeTypeRepository p_badgeTypeRepository, final ActionInfoRepository p_actionInfoRepository) {
+        super(p_badgeRepository, p_projectRepository, p_tagRepository, p_userRepository, p_actionInfoRepository);
+
         m_badgeTypeRepository = p_badgeTypeRepository;
     }
 

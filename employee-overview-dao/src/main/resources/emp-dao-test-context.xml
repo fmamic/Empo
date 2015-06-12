@@ -3,12 +3,23 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+       http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd
            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
            http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd">
 
     <context:annotation-config/>
     <context:component-scan base-package="net.employee.overview.dao"/>
+
+    <!--<jdbc:embedded-database id="dataSource" type="H2"/>-->
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+        <property name="driverClass" value="org.h2.Driver"/>
+        <property name="url" value="jdbc:h2:tcp://localhost/~/test3"/>
+        <property name="username" value="sa"/>
+        <property name="password" value=""/>
+    </bean>
 
     <!-- SPRING - JPA -->
     <jpa:repositories base-package="net.employee.overview.dao"/>
@@ -31,10 +42,11 @@
         </property>
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="generateDdl" value="true" />
+                <property name="generateDdl" value="true"/>
                 <property name="showSql" value="false"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQL9Dialect"/>
             </bean>
         </property>
     </bean>
+
 </beans>

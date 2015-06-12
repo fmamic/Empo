@@ -11,6 +11,7 @@
     <include file="classpath:/database/migration/emp-badgetype.xml" />
     <include file="classpath:/database/migration/emp-badge.xml" />
     <include file="classpath:/database/migration/emp-project.xml" />
+    <include file="classpath:/database/migration/emp-actioninfo.xml" />
 
     <include file="classpath:/database/migration/link-table/emp-bdg-tag.xml" />
     <include file="classpath:/database/migration/link-table/emp-pro-tag.xml" />
