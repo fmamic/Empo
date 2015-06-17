@@ -1,13 +1,19 @@
-angular.module('ngBoilerplate.tag', [
+angular.module('taggy.tag', [
     'ui.router', 'chart.js'
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('tag', {
             url: '/tag',
             views: {
+                "navbar": {
+                    templateUrl: 'main/navbar.tpl.html'
+                },
                 "main": {
                     controller: 'TagCtrl',
                     templateUrl: 'tag/tag.tpl.html'
+                },
+                "footer": {
+                    templateUrl: 'main/footer.tpl.html'
                 }
             },
             data: {pageTitle: 'Tag'}

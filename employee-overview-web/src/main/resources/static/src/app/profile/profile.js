@@ -1,22 +1,34 @@
-var profile = angular.module('ngBoilerplate.profile', [
+var profile = angular.module('taggy.profile', [
     'selectize', 'ui.router', 'chart.js', 'ui.bootstrap'
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('profile', {
             url: '/profile',
             views: {
+                "navbar": {
+                    templateUrl: 'main/navbar.tpl.html'
+                },
                 "main": {
                     controller: 'ProfileCtrl',
                     templateUrl: 'profile/profile.tpl.html'
+                },
+                "footer": {
+                    templateUrl: 'main/footer.tpl.html'
                 }
             },
             data: {pageTitle: 'Profile'}
         }).state('profile.detail', {
             url: '/:id',
             views: {
+                "navbar": {
+                    templateUrl: 'main/navbar.tpl.html'
+                },
                 "main": {
                     controller: 'ProfileCtrl',
                     templateUrl: 'profile/profile.tpl.html'
+                },
+                "footer": {
+                    templateUrl: 'main/footer.tpl.html'
                 }
             },
             data: {pageTitle: 'Profile'}

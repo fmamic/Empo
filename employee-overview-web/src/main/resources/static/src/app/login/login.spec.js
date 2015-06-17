@@ -1,5 +1,5 @@
-describe( 'person section', function() {
-    beforeEach( module( 'taggy.person' ) );
+describe( 'login section', function() {
+    beforeEach( module( 'taggy.login' ) );
 
     it( 'should have a dummy test', inject( function() {
         expect( true ).toBeTruthy();

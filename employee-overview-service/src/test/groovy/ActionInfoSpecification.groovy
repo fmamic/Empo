@@ -5,6 +5,7 @@ import net.employee.overview.service.BadgeService
 import net.employee.overview.service.UserBadgeService
 import net.employee.overview.service.UserService
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Sort
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.transaction.TransactionConfiguration
 import org.springframework.transaction.annotation.Transactional
@@ -48,4 +49,21 @@ class ActionInfoSpecification extends Specification {
         actionInfos
     }
 
+    def "Should save ActionInfo and find ti with sort"() {
+        when:
+        User user = new User(name: "Name", cellPhone: "sdes");
+        Badge badge = new Badge(name: "Badge");
+
+        User savedUser = m_userService.save(User.class, user);
+        Badge savedBadge = m_badgeService.save(Badge.class, badge);
+
+        UserBadge userBadge = new UserBadge(user: savedUser, badge: savedBadge);
+
+        then:
+        m_userBadgeService.save(UserBadge.class, userBadge);
+        List<ActionInfo> actionInfos = m_actionInfoService.findAllWithSort();
+
+        expect:
+        actionInfos
+    }
 }

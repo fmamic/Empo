@@ -1,4 +1,4 @@
-angular.module( 'ngBoilerplate.about', [
+angular.module( 'taggy.about', [
   'ui.router',
   'placeholders',
   'ui.bootstrap'
@@ -8,9 +8,15 @@ angular.module( 'ngBoilerplate.about', [
   $stateProvider.state( 'about', {
     url: '/about',
     views: {
+      "navbar": {
+        templateUrl: 'main/navbar.tpl.html'
+      },
       "main": {
         controller: 'AboutCtrl',
         templateUrl: 'about/about.tpl.html'
+      },
+      "footer": {
+        templateUrl: 'main/footer.tpl.html'
       }
     },
     data:{ pageTitle: 'What is It?' }

@@ -48,7 +48,8 @@ module.exports = {
             'vendor/bootstrap/dist/js/bootstrap.min.js',
             'vendor/microplugin/src/microplugin.js',
             'vendor/sifter/sifter.min.js',
-            'vendor/angular-selectize2/dist/selectize.js'
+            'vendor/angular-selectize2/dist/selectize.js',
+            'vendor/ngstorage/ngStorage.min.js'
         ],
         css: [
             'vendor/selectize/dist/css/selectize.default.css',

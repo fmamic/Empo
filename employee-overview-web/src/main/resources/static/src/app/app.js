@@ -1,69 +1,72 @@
-var app = angular.module('ngBoilerplate', [
+var app = angular.module('taggy', [
     'templates-app',
     'templates-common',
-    'ngBoilerplate.home',
-    'ngBoilerplate.about',
-    'ngBoilerplate.profile',
-    'ngBoilerplate.person',
-    'ngBoilerplate.images',
-    'ngBoilerplate.tag',
-    'ngBoilerplate.search',
+    'taggy.home',
+    'taggy.about',
+    'taggy.profile',
+    'taggy.person',
+    'taggy.images',
+    'taggy.tag',
+    'taggy.search',
+    'taggy.login',
     'ui.router',
+    'ngStorage',
     'chart.js'
-])
 
-    .config(function myAppConfig($stateProvider, $urlRouterProvider) {
-        $urlRouterProvider.otherwise('/home');
-    })
+]).config(function myAppConfig($stateProvider, $urlRouterProvider, $httpProvider) {
 
-    .run(function run() {
-    })
-
-    .controller('AppCtrl', function AppCtrl($scope) {
-        $scope.$on('$stateChangeSuccess', function (event, toState) {
-            if (angular.isDefined(toState.data.pageTitle)) {
-                $scope.pageTitle = toState.data.pageTitle;
+    $httpProvider.interceptors.push(['$q', '$location', '$localStorage', function($q, $location, $localStorage) {
+        return {
+            'request': function (config) {
+                config.headers = config.headers || {};
+                if ($localStorage.token) {
+                    config.headers.Authorization = 'Bearer ' + $localStorage.token;
+                }
+                return config;
+            },
+            'responseError': function(response) {
+                if(response.status === 401 || response.status === 403) {
+                    $location.path('/login');
+                }
+                return $q.reject(response);
             }
-        });
-    })
-    .controller('SearchCtrl', function SearchCtrl($scope, $state, $http, $location) {
-        $scope.selected = undefined;
-
-        $scope.onSelect = function ($item, $model) {
-            $state.go('profile.detail', {id: $model.id}, { reload: true });
         };
+    }]);
 
-        $scope.persons = {};
+    $urlRouterProvider.otherwise('/login');
 
-        $http.post($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/user/all').
-            success(function(data, status, headers, config) {
-                $scope.persons = data;
-            }).
-            error(function(data, status, headers, config) {
-            });
+}).controller('AppCtrl', function AppCtrl($scope, $localStorage, $state, $rootScope, $location) {
 
-        $scope.tags = [{
-            id: 0,
-            name: 'Java',
-            tagType: 'Tehnology',
-            displayName: 'Java Programming Language',
-            description: 'Open source programming language'
-        }];
-
-        $scope.badges = [{
-            id: 0,
-            name: 'Java Certified Associate',
-            tag: 1,
-            badgeType: 'Tehnology',
-            level: 1,
-            description: 'Java low certification level'
-        }];
-
-        $scope.projects = [{
-            id: 0,
-            description: 'Very big project with multiple data modules',
-            name: 'RBA web portal',
-            fromDate: '11.2.2014.',
-            toDate: '3.3.2015.'
-        }];
+    $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        if(next.indexOf("access_token") != -1) {
+            $localStorage.token = $location.$$path.split('&')[1].split('=')[1];
+        }
     });
+
+    $scope.$on('$stateChangeSuccess', function (event, toState) {
+        if (!$localStorage.token) {
+            $location.path('/login');
+            return;
+        }
+
+        if (angular.isDefined(toState.data.pageTitle)) {
+            $scope.pageTitle = toState.data.pageTitle;
+        }
+    });
+
+}).controller('SearchCtrl', function SearchCtrl($scope, $state, $http, $location) {
+    $scope.selected = undefined;
+
+    $scope.onSelect = function ($item, $model) {
+        $state.go('profile.detail', {id: $model.id}, {reload: true});
+    };
+
+    $scope.persons = {};
+
+    $http.post($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/user/all').
+        success(function (data) {
+            $scope.persons = data;
+        }).
+        error(function (data, status, headers, config) {
+        });
+});

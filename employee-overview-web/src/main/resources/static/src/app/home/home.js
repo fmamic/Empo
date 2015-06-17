@@ -1,4 +1,4 @@
-angular.module('ngBoilerplate.home', [
+angular.module('taggy.home', [
     'ui.router',
     'plusOne',
     'chart.js', 'infinite-scroll'
@@ -6,9 +6,15 @@ angular.module('ngBoilerplate.home', [
     $stateProvider.state('home', {
         url: '/home',
         views: {
+            "navbar": {
+                templateUrl: 'main/navbar.tpl.html'
+            },
             "main": {
                 controller: 'HomeCtrl',
                 templateUrl: 'home/home.tpl.html'
+            },
+            "footer": {
+                templateUrl: 'main/footer.tpl.html'
             }
         },
         data: {pageTitle: 'Home'}
@@ -19,13 +25,12 @@ angular.module('ngBoilerplate.home', [
 
     $scope.eventLog = [];
 
-    $http.get($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/tag/revisions').
+    $http.get($location.$$protocol + '://' + $location.$$host + ':' + $location.$$port + '/search/all/actionInfo').
         success(function (data) {
-
             $.each(data, function(index, value) {
 
-                if(value.revisionType == "ADD") {
-                    $scope.eventLog.push({ name: "New Tag has been added.", date: value.revisionDate, description: "New tag named " + value.form.name + " has been added to collection of tags" });
+                if(value.action.indexOf("ADD") >= 0 && value.type.indexOf("UserBadge") >= 0) {
+                    $scope.eventLog.push({ userId: value.userId,  name: value.userName, date: value.timestamp, description: value.entityName + " has been added to " + value.userName });
                 }
 
             });

@@ -1,22 +1,34 @@
-angular.module('ngBoilerplate.search', [
+angular.module('taggy.search', [
     'ui.router', 'chart.js', 'infinite-scroll'
 ])
     .config(function config($stateProvider) {
         $stateProvider.state('search', {
             url: '/search',
             views: {
+                "navbar": {
+                    templateUrl: 'main/navbar.tpl.html'
+                },
                 "main": {
                     controller: 'SearchResultsCtrl',
                     templateUrl: 'search/search.tpl.html'
+                },
+                "footer": {
+                    templateUrl: 'main/footer.tpl.html'
                 }
             },
             data: { pageTitle: 'Search result'}
         }).state('search.param', {
             url:'/:param',
             views: {
+                "navbar": {
+                    templateUrl: 'main/navbar.tpl.html'
+                },
                 "main": {
                     controller: 'SearchResultsCtrl',
                     templateUrl: 'search/search.tpl.html'
+                },
+                "footer": {
+                    templateUrl: 'main/footer.tpl.html'
                 }
             },
             data: { pageTitle: 'Search result' }
@@ -27,65 +39,6 @@ angular.module('ngBoilerplate.search', [
 
 
         $http.post('/search/user', {firstName: 'Filip', lastName: 'Mamic'});
-
-        $scope.eventLog = [
-            {
-                name: "John Doe",
-                description: "Certification description s known as prototypical inheritance, and child scopes prototypically"
-            },
-            {
-                name: "Java",
-                description: "Java tag"
-
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            }
-        ];
-
-        $scope.eventLog.rest = [
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            },
-            {
-                name: "Badge",
-                description: "Badge of honor"
-            }
-        ];
 
         $scope.numberLoaded = 0;
 

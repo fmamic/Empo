@@ -19,6 +19,7 @@
     <properties>
         <spring.boot.version>1.2.3.RELEASE</spring.boot.version>
         <spring.version>4.1.6.RELEASE</spring.version>
+        <spring.security>4.0.1.RELEASE</spring.security>
         <javax.el.version>3.0.0</javax.el.version>
         <spock.version>1.0-groovy-2.4</spock.version>
         <objenesis.version>2.1</objenesis.version>
@@ -103,8 +104,14 @@
                 <version>${aspect.version}</version>
             </dependency>
 
-            <!-- TEST -->
+            <!-- SECURITY -->
+            <dependency>
+                <groupId>org.springframework.security</groupId>
+                <artifactId>spring-security-web</artifactId>
+                <version>${spring.security}</version>
+            </dependency>
 
+            <!-- TEST -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>

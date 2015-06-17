@@ -1,17 +1,25 @@
-angular.module('ngBoilerplate.person', [
+angular.module('taggy.person', [
     'ui.router'
 ]).config(function config($stateProvider) {
     $stateProvider.state('person', {
         url: '/person',
         views: {
+            "navbar": {
+                templateUrl: 'main/navbar.tpl.html'
+            },
             "main": {
                 controller: 'PersonCtrl',
                 templateUrl: 'person/addPerson.tpl.html'
+            },
+            "footer": {
+                templateUrl: 'main/footer.tpl.html'
             }
         },
-        data: {pageTitle: 'Person'}
+        data: { pageTitle: 'Person' }
     });
+
 }).controller('PersonCtrl', function PersonController($scope, $http, $location) {
+
 }).controller('BirthDateController', function DateController($scope) {
     $scope.today = function() {
         $scope.dt = new Date();

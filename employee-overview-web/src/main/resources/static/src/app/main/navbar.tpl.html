@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
+                    ng-click="menuCollapsed = ! menuCollapsed">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <div class="navbar-brand">
+                TAGGY v0.0.1
+            </div>
+        </div>
+        <div class="collapse navbar-collapse" collapse="menuCollapsed">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active">
+                    <a href ui-sref="home">
+                        <i class="fa fa-home"></i>
+                        Home
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href ui-sref="profile">
+                        <i class="fa fa-info-circle"></i>
+                        Profile
+                    </a>
+                </li>
+                <li class="searchBox" ng-controller="SearchCtrl">
+                    <div class="searchLabel">
+                        Search:
+                    </div>
+                    <a class="searchLink">
+                        <div class="row">
+                            <input type="text" ng-model="selected" placeholder="Search people, tags, badges and more"
+                                   typeahead="person as person.name for person in persons | filter:{name:$viewValue}"
+                                   typeahead-template-url="customTemplate.html" class="form-control"
+                                   typeahead-on-select="onSelect($item, $model, $label)">
+                        </div>
+                        <script type="text/ng-template" id="customTemplate.html">
+                            <a class="searchItem" ng-href="#/profile/{{match.model.id}}">
+                                <img class="searchImg" ng-src="{{ match.model.picture }}">
+                                <span bind-html-unsafe="match.label | typeaheadHighlight:query"></span>
+                                <p class="searchDesc">{{ match.model.position }}</p>
+                            </a>
+                            <hr class="searchBorder">
+                        </script>
+                    </a>
+                    <div class="searchButton">
+                        <a ui-sref="search.param({ param:selected })" ui-sref-opts="{reload: true}" class="btn" aria-hidden="true"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                    </div>
+                </li>
+                <li ui-sref-active="active">
+                    <a href ui-sref="person">
+                        Add person
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a href ui-sref="images">
+                        Images
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

@@ -25,7 +25,7 @@
             <column name="ACT_USER_NAME" type="VARCHAR(100)" />
             <column name="ACT_ENTITY_NAME" type="VARCHAR(100)" />
 
-            <column name="ACT_TIMESTAMP" type="DATE" />
+            <column name="ACT_TIMESTAMP" type="TIMESTAMP" />
         </createTable>
     </changeSet>
 </databaseChangeLog>
