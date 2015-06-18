@@ -8,13 +8,13 @@ import net.employee.overview.dao.ProjectRepository;
 import net.employee.overview.dao.TagRepository;
 import net.employee.overview.dao.UserRepository;
 import net.employee.overview.model.entity.ActionInfo;
-import net.employee.overview.service.AbstractPersistableService;
+import net.employee.overview.service.AbstractEntityPersistableService;
 import net.employee.overview.service.ActionInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ActionInfoServiceImpl extends AbstractPersistableService implements ActionInfoService {
+public class ActionInfoServiceImpl extends AbstractEntityPersistableService implements ActionInfoService {
 
     @Autowired
     public ActionInfoServiceImpl(final BadgeRepository p_badgeRepository, final ProjectRepository p_projectRepository,

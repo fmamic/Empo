@@ -36,25 +36,6 @@ angular.module('taggy.home', [
             });
         });
 
-    $scope.numberLoaded = 0;
-
-    $scope.loadMore = function () {
-        var last = $scope.eventLog.rest.length - 1;
-
-        for (var i = $scope.numberLoaded; (i <= $scope.numberLoaded + 5) && i <= last; i++) {
-            $scope.eventLog.push($scope.eventLog.rest[$scope.numberLoaded]);
-        }
-
-        $scope.numberLoaded += 5;
-    };
-
-    $http.get('http://api.randomuser.me/').
-        success(function (data) {
-            var user = data.results[0].user;
-            $scope.person.picture = user.picture.thumbnail;
-        }).
-        error(function (data, status, headers, config) {
-        });
 }).controller("Bar2Ctrl", function ($scope) {
     $scope.labels = ['John', 'John', 'John', 'John', 'John', 'John', 'John'];
     $scope.series = ['Series A'];
@@ -65,5 +46,6 @@ angular.module('taggy.home', [
 }).controller("DoughnutCtrl", function ($scope) {
     $scope.labels = ["Java", "Spring", "Hibernate"];
     $scope.data = [120, 80, 30];
+
 });
 

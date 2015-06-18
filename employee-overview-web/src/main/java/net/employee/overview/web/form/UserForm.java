@@ -1,13 +1,19 @@
 package net.employee.overview.web.form;
 
-import net.employee.overview.model.code.Role;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
+import net.employee.overview.model.code.Role;
+import net.employee.overview.model.entity.User;
+import net.employee.overview.model.entity.UserBadge;
+import net.employee.overview.model.entity.UserTag;
+import org.springframework.beans.BeanUtils;
 
 public class UserForm extends Revision {
 
-    private Long id;
+    private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     private String username;
 
@@ -39,12 +45,49 @@ public class UserForm extends Revision {
 
     private UserForm managerForm;
 
-    public Long getId() {
-        return id;
+    public static UserForm createFormFromUser(final User p_user) {
+
+        final UserForm userForm = new UserForm();
+        final UserForm managerForm = new UserForm();
+
+        if (p_user == null) {
+            return userForm;
+        }
+
+        setTagsBadges(p_user, userForm);
+
+        if (p_user.getManager() != null) {
+            BeanUtils.copyProperties(p_user.getManager(), managerForm);
+        }
+
+        userForm.setManagerForm(managerForm);
+        return userForm;
     }
 
-    public void setId(final Long p_id) {
-        id = p_id;
+    @SuppressWarnings("RedundantStringToString")
+    public static void setTagsBadges(final User p_user, final UserForm p_userForm) {
+        BeanUtils.copyProperties(p_user, p_userForm);
+
+        if (p_userForm.getDateOfBirthStr() != null) {
+            p_userForm.setDateOfBirthStr((new SimpleDateFormat(DATE_FORMAT, new Locale("en")).format(p_user.getDateOfBirth())).toString());
+        }
+
+        if (p_user.getTags() != null) {
+            for (final UserTag tag : p_user.getTags()) {
+                final TagForm tagForm = new TagForm();
+                BeanUtils.copyProperties(tag.getTag(), tagForm);
+
+                p_userForm.getTagForm().add(tagForm);
+            }
+        }
+
+        if (p_user.getBadges() != null) {
+            for (final UserBadge badge : p_user.getBadges()) {
+                final BadgeForm form = new BadgeForm();
+                BeanUtils.copyProperties(badge.getBadge(), form);
+                p_userForm.getBadgeForm().add(form);
+            }
+        }
     }
 
     public String getUsername() {

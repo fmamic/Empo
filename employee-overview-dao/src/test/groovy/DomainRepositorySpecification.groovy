@@ -2,7 +2,7 @@ import net.employee.overview.model.entity.Badge
 import net.employee.overview.model.entity.BadgeTag
 import spock.lang.Specification
 
-class DomainSpecification extends Specification {
+class DomainRepositorySpecification extends Specification {
 
     def "Should test equals and hash code without id"() {
         when:

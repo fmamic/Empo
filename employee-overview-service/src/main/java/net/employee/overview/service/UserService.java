@@ -6,6 +6,8 @@ import net.employee.overview.model.entity.User;
 
 public interface UserService extends PersistableService {
 
+    User fetchUserByUsername(final String p_username);
+
     List<User> fetchUsersWithFilter(UserFilterForm p_userFilterForm);
 
     List<User> fetchAllUsers();

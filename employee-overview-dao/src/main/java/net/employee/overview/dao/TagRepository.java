@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagRepository extends JpaRepository<Tag, Long> {
 
-    @Query("select t from Tag t where t.m_id in :ids")
+    @Query("select t from #{#entityName} t where t.m_id in :ids")
     List<Tag> fetchTagsByIds(@Param("ids") final List<Long> p_ids);
 
 }

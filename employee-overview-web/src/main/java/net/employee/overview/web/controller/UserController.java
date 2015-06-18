@@ -1,22 +1,17 @@
 package net.employee.overview.web.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 import net.employee.overview.dao.form.UserFilterForm;
 import net.employee.overview.model.entity.User;
-import net.employee.overview.model.entity.UserBadge;
-import net.employee.overview.model.entity.UserTag;
 import net.employee.overview.service.AuditService;
 import net.employee.overview.service.UserService;
-import net.employee.overview.web.form.BadgeForm;
 import net.employee.overview.web.form.RevisionForm;
-import net.employee.overview.web.form.TagForm;
 import net.employee.overview.web.form.UserForm;
 import org.hibernate.envers.DefaultRevisionEntity;
 import org.hibernate.envers.RevisionType;
-import org.springframework.beans.BeanUtils;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,8 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
-
-    private static final String DATE_FORMAT = "dd.MM.yyyy";
 
     private final UserService  m_userService;
     private final AuditService m_auditService;
@@ -44,11 +37,16 @@ public class UserController {
         return getUserForms(users);
     }
 
+    @RequestMapping("/search/user/username/{username}")
+    public final @ResponseBody UserForm searchUserByUsername(@PathVariable("username") final String p_username) {
+        return UserForm.createFormFromUser(m_userService.fetchUserByUsername(p_username));
+    }
+
     @RequestMapping("/search/user/{id}")
     public final @ResponseBody UserForm searchUserById(@PathVariable("id") final Long p_id) {
         final User user = m_userService.fetchUserById(p_id);
 
-        return setUserForm(user);
+        return UserForm.createFormFromUser(user);
     }
 
     @RequestMapping("/search/user")
@@ -79,11 +77,11 @@ public class UserController {
         return forms;
     }
 
-    private List<UserForm> getUserForms(final List<User> p_users) {
+    protected final List<UserForm> getUserForms(final List<User> p_users) {
         final List<UserForm> userForms = new ArrayList<UserForm>();
 
         for (final User user : p_users) {
-            final UserForm userForm = setUserForm(user);
+            final UserForm userForm = UserForm.createFormFromUser(user);
 
             userForms.add(userForm);
         }
@@ -91,44 +89,10 @@ public class UserController {
         return userForms;
     }
 
-    private UserForm setUserFormRevision(final User p_user) {
+    protected final UserForm setUserFormRevision(final User p_user) {
         final UserForm userForm = new UserForm();
-        setTagsBadges(p_user, userForm);
+        UserForm.setTagsBadges(p_user, userForm);
 
-        return userForm;
-    }
-
-    @SuppressWarnings("RedundantStringToString")
-    private void setTagsBadges(final User p_user, final UserForm p_userForm) {
-        BeanUtils.copyProperties(p_user, p_userForm);
-
-        p_userForm.setDateOfBirthStr((new SimpleDateFormat(DATE_FORMAT).format(p_user.getDateOfBirth())).toString());
-
-        for (final UserTag tag : p_user.getTags()) {
-            final TagForm tagForm = new TagForm();
-            BeanUtils.copyProperties(tag.getTag(), tagForm);
-
-            p_userForm.getTagForm().add(tagForm);
-        }
-
-        for (final UserBadge badge : p_user.getBadges()) {
-            final BadgeForm form = new BadgeForm();
-            BeanUtils.copyProperties(badge.getBadge(), form);
-            p_userForm.getBadgeForm().add(form);
-        }
-    }
-
-    private UserForm setUserForm(final User p_user) {
-        final UserForm userForm = new UserForm();
-        final UserForm managerForm = new UserForm();
-
-        setTagsBadges(p_user, userForm);
-
-        if (p_user.getManager() != null) {
-            BeanUtils.copyProperties(p_user.getManager(), managerForm);
-        }
-
-        userForm.setManagerForm(managerForm);
         return userForm;
     }
 }

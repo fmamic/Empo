@@ -5,4 +5,8 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class AbstractCode implements Identifier {
 
+    protected AbstractCode() {
+        //pmd
+    }
+
 }

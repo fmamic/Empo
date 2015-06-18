@@ -14,7 +14,7 @@ import spock.lang.Unroll
 @ContextConfiguration("classpath*:emp-dao-test-context.xml")
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-class UserSpecification extends Specification {
+class UserRepositorySpecification extends Specification {
 
     @Autowired
     @Subject
@@ -24,8 +24,7 @@ class UserSpecification extends Specification {
     def "Should bring context and save value to test DB"() {
         when:
         User user = new User();
-        user.firstName = "FirstName2"
-        user.lastName = "lastName2"
+        user.name = "First name Last name"
 
         then:
         userRepository.save(user)
@@ -33,5 +32,22 @@ class UserSpecification extends Specification {
 
         expect:
         userSaved
+        userSaved.name
+    }
+
+    @Unroll
+    def "Should query for user with username and return single result"() {
+        when:
+        User user = new User();
+        user.username = "username"
+
+        then:
+        userRepository.save(user)
+        userRepository.findAll().last()
+        User userQuery = userRepository.findUserByUsername(user.username)
+
+        expect:
+        userQuery
+        userQuery.username
     }
 }

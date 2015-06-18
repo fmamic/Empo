@@ -2,9 +2,7 @@ package net.employee.overview.web.form;
 
 import java.util.Date;
 
-public class ActionInfoForm {
-
-    private Long id;
+public class ActionInfoForm extends Form {
 
     private String action;
 
@@ -19,14 +17,6 @@ public class ActionInfoForm {
     private String userName;
 
     private String entityName;
-
-    public final Long getId() {
-        return id;
-    }
-
-    public final void setId(final Long p_id) {
-        id = p_id;
-    }
 
     public final String getAction() {
         return action;

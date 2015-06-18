@@ -18,4 +18,5 @@ public abstract class AbstractPersistable implements Identifier {
     public void setVersion(final Long p_version) {
         m_version = p_version;
     }
+
 }

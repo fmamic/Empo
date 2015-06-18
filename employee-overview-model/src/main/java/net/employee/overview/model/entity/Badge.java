@@ -125,11 +125,11 @@ public class Badge extends AbstractPersistable {
     }
 
     public byte[] getImage() {
-        return m_image;
+        return m_image.clone();
     }
 
     public void setImage(final byte[] p_image) {
-        m_image = p_image;
+        m_image = p_image.clone();
     }
 
     public List<UserBadge> getBadges() {

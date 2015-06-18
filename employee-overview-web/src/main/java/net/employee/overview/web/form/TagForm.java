@@ -2,8 +2,6 @@ package net.employee.overview.web.form;
 
 public class TagForm extends Revision {
 
-    private Long id;
-
     private Long version;
 
     private String name;
@@ -17,14 +15,6 @@ public class TagForm extends Revision {
     private String link;
 
     private UserForm userForm;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long p_id) {
-        id = p_id;
-    }
 
     public Long getVersion() {
         return version;

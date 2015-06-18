@@ -50,15 +50,16 @@
                         <a ui-sref="search.param({ param:selected })" ui-sref-opts="{reload: true}" class="btn" aria-hidden="true"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
                     </div>
                 </li>
-                <li ui-sref-active="active">
-                    <a href ui-sref="person">
-                        Add person
-                    </a>
-                </li>
-                <li ui-sref-active="active">
-                    <a href ui-sref="images">
-                        Images
-                    </a>
+                <li>
+                    <div class="dropdown">
+                        <button class="btn btn-logout dropdown-toggle" type="button" id="dropdownLogout" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            {{ currentUser.form.name + " (" + currentUser.username + ")" }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownLogout">
+                            <li><a ng-click="logout()">Logout</a></li>
+                        </ul>
+                    </div>
                 </li>
             </ul>
         </div>

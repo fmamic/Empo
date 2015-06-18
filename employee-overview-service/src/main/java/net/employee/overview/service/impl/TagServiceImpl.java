@@ -10,13 +10,13 @@ import net.employee.overview.dao.TagTypeRepository;
 import net.employee.overview.dao.UserRepository;
 import net.employee.overview.model.entity.Tag;
 import net.employee.overview.model.entity.TagType;
-import net.employee.overview.service.AbstractPersistableService;
+import net.employee.overview.service.AbstractEntityPersistableService;
 import net.employee.overview.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TagServiceImpl extends AbstractPersistableService implements TagService {
+public class TagServiceImpl extends AbstractEntityPersistableService implements TagService {
 
     private final TagTypeRepository m_tagTypeRepository;
 

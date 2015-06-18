@@ -10,14 +10,13 @@ import net.employee.overview.dao.TagRepository;
 import net.employee.overview.dao.UserRepository;
 import net.employee.overview.model.entity.Badge;
 import net.employee.overview.model.entity.BadgeType;
-import net.employee.overview.service.AbstractPersistableService;
-import net.employee.overview.service.ActionInfoService;
+import net.employee.overview.service.AbstractEntityPersistableService;
 import net.employee.overview.service.BadgeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class BadgeServiceImpl extends AbstractPersistableService implements BadgeService {
+public class BadgeServiceImpl extends AbstractEntityPersistableService implements BadgeService {
 
     private final BadgeTypeRepository m_badgeTypeRepository;
 

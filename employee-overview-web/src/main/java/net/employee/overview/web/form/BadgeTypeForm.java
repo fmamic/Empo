@@ -1,18 +1,8 @@
 package net.employee.overview.web.form;
 
-public class BadgeTypeForm {
-
-    private Long id;
+public class BadgeTypeForm extends Form {
 
     private String name;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long p_id) {
-        id = p_id;
-    }
 
     public String getName() {
         return name;

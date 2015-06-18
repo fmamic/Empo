@@ -5,13 +5,13 @@ import net.employee.overview.dao.BadgeRepository;
 import net.employee.overview.dao.ProjectRepository;
 import net.employee.overview.dao.TagRepository;
 import net.employee.overview.dao.UserRepository;
-import net.employee.overview.service.AbstractPersistableService;
+import net.employee.overview.service.AbstractEntityPersistableService;
 import net.employee.overview.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ProjectServiceImpl extends AbstractPersistableService implements ProjectService {
+public class ProjectServiceImpl extends AbstractEntityPersistableService implements ProjectService {
 
     @Autowired
     public ProjectServiceImpl(final BadgeRepository p_badgeRepository,

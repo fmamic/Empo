@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -16,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import net.employee.overview.model.AbstractPersistable;
+import net.employee.overview.model.AbstractUser;
 import net.employee.overview.model.code.Role;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
@@ -24,25 +25,20 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 @Entity
 @Table(name = "EMP_USER")
 @SequenceGenerator(name = "USR_SEQ", sequenceName = "USR_SEQ", allocationSize = 1)
-@AttributeOverride(name = "m_version", column = @Column(name = "USR_VERSION"))
-public class User extends AbstractPersistable {
+@AttributeOverrides({
+        @AttributeOverride(name = "m_version", column = @Column(name = "USR_VERSION")),
+        @AttributeOverride(name = "m_name", column = @Column(name = "USR_NAME")),
+        @AttributeOverride(name = "m_username", column = @Column(name = "USR_USERNAME")),
+})
+public class User extends AbstractUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USR_SEQ")
     @Column(name = "USR_ID")
     private Long m_id;
 
-    @Column(name = "USR_USERNAME")
-    private String m_username;
-
     @Column(name = "USR_PICTURE")
     private String m_picture;
-
-    @Column(name = "USR_PASSWORD")
-    private String m_password;
-
-    @Column(name = "USR_NAME")
-    private String m_name;
 
     @Column(name = "USR_POSITION")
     private String m_position;
@@ -96,22 +92,6 @@ public class User extends AbstractPersistable {
 
     public void setPhone(final String p_phone) {
         m_phone = p_phone;
-    }
-
-    public String getUsername() {
-        return m_username;
-    }
-
-    public void setUsername(final String p_username) {
-        m_username = p_username;
-    }
-
-    public String getPassword() {
-        return m_password;
-    }
-
-    public void setPassword(final String p_password) {
-        m_password = p_password;
     }
 
     public Long getId() {
@@ -176,14 +156,6 @@ public class User extends AbstractPersistable {
 
     public void setCellPhone(final String p_cellPhone) {
         m_cellPhone = p_cellPhone;
-    }
-
-    public String getName() {
-        return m_name;
-    }
-
-    public void setName(final String p_name) {
-        m_name = p_name;
     }
 
     public Date getDateOfBirth() {

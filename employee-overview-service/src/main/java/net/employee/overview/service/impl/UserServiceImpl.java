@@ -10,13 +10,15 @@ import net.employee.overview.dao.UserCriteria;
 import net.employee.overview.dao.UserRepository;
 import net.employee.overview.dao.form.UserFilterForm;
 import net.employee.overview.model.entity.User;
-import net.employee.overview.service.AbstractPersistableService;
+import net.employee.overview.service.AbstractEntityPersistableService;
 import net.employee.overview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends AbstractPersistableService implements UserService {
+public class UserServiceImpl extends AbstractEntityPersistableService implements UserService {
+
+    private static final String UNCHECKED = "unchecked";
 
     private final UserCriteria m_userCriteria;
 
@@ -31,17 +33,22 @@ public class UserServiceImpl extends AbstractPersistableService implements UserS
         m_userCriteria = p_userCriteria;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
+    public final User fetchUserByUsername(final String p_username) {
+        return ((UserRepository) getRepository(User.class)).findUserByUsername(p_username);
+    }
+
+    @SuppressWarnings(UNCHECKED)
     public final List<User> fetchAllUsers() {
         return ((UserRepository) getRepository(User.class)).findAll();
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     public final User fetchUserById(final Long p_id) {
         return (User) getRepository(User.class).findOne(p_id);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings(UNCHECKED)
     public final List<User> fetchUsersWithFilter(final UserFilterForm p_userFilterForm) {
         return m_userCriteria.fetchUsersWithFilter(p_userFilterForm);
     }

@@ -13,7 +13,7 @@ public abstract class AbstractService<T extends AbstractCode> implements Service
 
     private final RoleRepository m_roleRepository;
 
-    private ImmutableMap<Class<Role>, RoleRepository> m_repositories;
+    private final ImmutableMap<Class<Role>, RoleRepository> m_repositories;
 
     @Autowired
     public AbstractService(final RoleRepository p_roleRepository) {

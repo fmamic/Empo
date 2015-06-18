@@ -2,9 +2,7 @@ package net.employee.overview.web.form;
 
 import java.util.Date;
 
-public class BadgeForm {
-
-    private Long id;
+public class BadgeForm extends Form {
 
     private String name;
 
@@ -19,14 +17,6 @@ public class BadgeForm {
     private Long userId;
 
     private Date date;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long p_id) {
-        id = p_id;
-    }
 
     public String getName() {
         return name;

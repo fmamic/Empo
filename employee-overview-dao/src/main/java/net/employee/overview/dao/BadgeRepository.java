@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface BadgeRepository extends JpaRepository<Badge, Long> {
 
-    @Query("select b from Badge b where b.m_id in :ids")
+    @Query("select b from #{#entityName} b where b.m_id in :ids")
     List<Badge> fetchBadgesByIds(@Param("ids") List<Long> p_ids);
 }
